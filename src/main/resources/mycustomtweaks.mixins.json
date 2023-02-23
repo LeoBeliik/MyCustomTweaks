@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.leobeliik.mycustomtweaks.mixins",
+  "compatibilityLevel": "JAVA_16",
+  "client": [
+    "ManaBurstEntityMixin"
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "mycustomtweaks.refmap.json"
+}
