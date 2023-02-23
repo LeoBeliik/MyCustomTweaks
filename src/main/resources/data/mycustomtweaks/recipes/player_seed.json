@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "botania:world_seed"
+    }
+  ],
+  "result": {
+    "count": 8,
+    "item": "mycustomtweaks:player_seed"
+  }
+}

@@ -1,5 +1,7 @@
 package com.leobeliik.mycustomtweaks;
 
+import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -11,16 +13,25 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.item.CorporeaSparkItem;
 
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
     public static final String MODID = "mycustomtweaks";
+    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
     public MyCustomTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        Registry();
+    }
+
+    private void Registry() {
+        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     @SubscribeEvent
@@ -30,4 +41,7 @@ public class MyCustomTweaks {
             event.setUseBlock(Event.Result.DENY);
         }
     }
+
+    public static final RegistryObject<Item> PLAYER_SEED_ITEM = ITEMS.register("player_seed", () ->
+            new PlayerSeedItem(new Item.Properties().stacksTo(8)));
 }

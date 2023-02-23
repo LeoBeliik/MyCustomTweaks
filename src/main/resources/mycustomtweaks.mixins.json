@@ -4,7 +4,8 @@
   "package": "com.leobeliik.mycustomtweaks.mixins",
   "compatibilityLevel": "JAVA_16",
   "client": [
-    "ManaBurstEntityMixin"
+    "ManaBurstEntityMixin",
+    "CloakModelMixin"
   ],
   "mixins": [
   ],

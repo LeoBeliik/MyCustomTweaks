@@ -7,6 +7,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.entity.ManaBurstEntity;
+import vazkii.botania.common.item.ManaBlasterItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 
 @Mixin(ManaBurstEntity.class)
@@ -36,7 +38,13 @@ public abstract class ManaBurstEntityMixin extends ThrowableProjectile implement
 
     @Inject(method = "Lvazkii/botania/common/entity/ManaBurstEntity;getParticleSize()F", at = @At("RETURN"), remap = false)
     public float getParticleSizeTweak(CallbackInfoReturnable ci) {
-        return getBurstSourceBlockPos().equals(NO_SOURCE) ? 0F : ci.getReturnValueF();
+        if (entity().getOwner() instanceof Player player) {
+            Item item = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
+            if (item instanceof TerraBladeItem || item instanceof ManaBlasterItem) {
+                return 0F;
+            }
+        }
+        return ci.getReturnValueF();
     }
 
     @Inject(method = "Lvazkii/botania/common/entity/ManaBurstEntity;setColor(I)V", at = @At("RETURN"), remap = false)
