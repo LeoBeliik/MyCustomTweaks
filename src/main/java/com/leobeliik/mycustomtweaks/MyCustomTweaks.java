@@ -1,7 +1,14 @@
 package com.leobeliik.mycustomtweaks;
 
 import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -17,6 +24,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.rod.SkiesRodItem;
 
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
@@ -42,6 +50,27 @@ public class MyCustomTweaks {
         if (be instanceof BaseContainerBlockEntity || be instanceof SimpleInventoryBlockEntity && event.getItemStack().is(BotaniaItems.corporeaSpark)) {
             event.setUseBlock(Event.Result.DENY);
         }
+    }
+
+    @SubscribeEvent
+    public void onUseTornado(PlayerInteractEvent.RightClickItem event) {
+        Player player = event.getEntity();
+        if (!player.isFallFlying() && player.getItemBySlot(EquipmentSlot.CHEST).canElytraFly(player)) {
+            Level level = player.level;
+            ItemStack itemstack = event.getItemStack();
+            if (itemstack.getItem() instanceof SkiesRodItem tornado) {
+                player.startFallFlying();
+                player.jumpFromGround();
+
+                if (!level.isClientSide) {
+                    tornado.use(level, player, InteractionHand.MAIN_HAND);
+                }
+                event.setCanceled(true);
+                event.setCancellationResult(level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME);
+            }
+
+        }
+
     }
 
     public static final RegistryObject<Item> PLAYER_SEED_ITEM = ITEMS.register("player_seed", () ->
