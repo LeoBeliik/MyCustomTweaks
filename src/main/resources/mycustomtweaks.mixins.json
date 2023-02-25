@@ -8,6 +8,7 @@
     "CloakModelMixin"
   ],
   "mixins": [
+    "TiaraMixin"
   ],
   "injectors": {
     "defaultRequire": 1
