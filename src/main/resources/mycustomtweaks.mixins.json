@@ -8,7 +8,8 @@
     "CloakModelMixin"
   ],
   "mixins": [
-    "TiaraMixin"
+    "TiaraMixin",
+    "GravityLensMixin"
   ],
   "injectors": {
     "defaultRequire": 1
