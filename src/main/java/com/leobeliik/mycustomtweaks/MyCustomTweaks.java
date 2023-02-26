@@ -49,7 +49,7 @@ public class MyCustomTweaks {
             event.setUseItem(Event.Result.DENY);
         }
         BlockEntity be = event.getLevel().getBlockEntity(event.getHitVec().getBlockPos());
-        if (be instanceof BaseContainerBlockEntity || be instanceof SimpleInventoryBlockEntity && event.getItemStack().is(BotaniaItems.corporeaSpark)) {
+        if ((be instanceof BaseContainerBlockEntity || be instanceof SimpleInventoryBlockEntity) && event.getItemStack().is(BotaniaItems.corporeaSpark)) {
             event.setUseBlock(Event.Result.DENY);
         }
     }
