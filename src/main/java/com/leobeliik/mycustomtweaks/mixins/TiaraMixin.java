@@ -10,7 +10,7 @@ import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 public class TiaraMixin {
 
     @Redirect(method = "Lvazkii/botania/common/item/equipment/bauble/FlugelTiaraItem;onWornTick(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isSprinting()Z"), remap = false)
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isSprinting()Z"))
     public boolean noDash(Player player) {
         return false;
     }

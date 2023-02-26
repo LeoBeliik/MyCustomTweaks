@@ -7,7 +7,7 @@
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$\run"/>
     <module name="mycustomtweaks.main"/>
     <envs>
-      <env name="MOD_CLASSES" value="mycustomtweaks%%$PROJECT_DIR$\build\resources\main;mycustomtweaks%%$PROJECT_DIR$\build\classes\java\main"/>
+      <env name="MOD_CLASSES" value="mycustomtweaks%%$PROJECT_DIR$\out\production\resources;mycustomtweaks%%$PROJECT_DIR$\out\production\classes"/>
       <env name="MCP_MAPPINGS" value="official_1.19.2"/>
     </envs>
     <method v="2">
