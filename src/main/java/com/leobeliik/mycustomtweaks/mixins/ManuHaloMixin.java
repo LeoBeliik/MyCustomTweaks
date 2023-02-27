@@ -31,7 +31,7 @@ public class ManuHaloMixin extends AssemblyHaloItem {
     }
 
     @Inject(method = "Lvazkii/botania/common/item/ManufactoryHaloItem;inventoryTick(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/Entity;IZ)V",
-            at = @At(value = "HEAD"), cancellable = true, remap = false)
+            at = @At(value = "HEAD"), cancellable = true)
     public void inventoryTick(ItemStack stack, Level world, Entity entity, int pos, boolean equipped, CallbackInfo ci) {
         if (ItemNBTHelper.getBoolean(stack, TAG_INACTIVE, true)) {
             ci.cancel();
