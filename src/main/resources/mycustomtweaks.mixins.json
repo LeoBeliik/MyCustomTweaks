@@ -10,7 +10,8 @@
   "mixins": [
     "TiaraMixin",
     "GravityLensMixin",
-    "ManuHaloMixin"
+    "ManuHaloMixin",
+    "DrumMixin"
   ],
   "injectors": {
     "defaultRequire": 1
