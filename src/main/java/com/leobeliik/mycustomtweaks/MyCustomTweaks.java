@@ -5,10 +5,12 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -16,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -51,6 +54,16 @@ public class MyCustomTweaks {
             efficiency = efficiency == 0 ? 9 : (efficiency + 1) * 5; //numbers based on my ass
             event.setNewSpeed(event.getOriginalSpeed() * efficiency);
         }
+    }
+
+    @SubscribeEvent
+    public void onCreeperExplode(ExplosionEvent.Start event) {
+        if (event.getExplosion().getExploder() instanceof Creeper creeper) {
+            event.setCanceled(true);
+            float f = creeper.isPowered() ? 2.0F : 1.0F;
+            event.getLevel().explode(null, creeper.getX(), creeper.getY(), creeper.getZ(), 3 * f, false, Explosion.BlockInteraction.BREAK);
+        }
+
     }
 
     @SubscribeEvent
