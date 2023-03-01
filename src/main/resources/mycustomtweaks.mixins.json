@@ -11,7 +11,8 @@
     "TiaraMixin",
     "GravityLensMixin",
     "ManuHaloMixin",
-    "DrumMixin"
+    "DrumMixin",
+    "CrystalBowMixin"
   ],
   "injectors": {
     "defaultRequire": 1
