@@ -12,7 +12,8 @@
     "GravityLensMixin",
     "ManuHaloMixin",
     "DrumMixin",
-    "CrystalBowMixin"
+    "CrystalBowMixin",
+    "DontRestockMe"
   ],
   "injectors": {
     "defaultRequire": 1
