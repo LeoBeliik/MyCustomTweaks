@@ -137,6 +137,7 @@ repositories {
     maven { url 'https://maven.blamejared.com' } //violent moon mods
     maven { url = "https://maven.theillusivec4.top/" } //Curios
     maven { url "https://dvs1.progwml6.com/files/maven/" } //JEI
+    maven { url "https://cursemaven.com" } //CurseForge
 }
 
 dependencies {

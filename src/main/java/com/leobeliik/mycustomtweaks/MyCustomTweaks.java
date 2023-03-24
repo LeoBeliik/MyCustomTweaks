@@ -1,6 +1,9 @@
 package com.leobeliik.mycustomtweaks;
 
 import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,6 +18,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -98,6 +103,18 @@ public class MyCustomTweaks {
 
     }
 
+    @SubscribeEvent
+    public void tomPlzRclick(ScreenEvent.MouseButtonPressed event) { //
+        Screen screen = event.getScreen();
+        if (screen.toString().contains("TerminalScreen")) {
+            for (GuiEventListener child : screen.children()) {
+                if (child instanceof EditBox) {
+                    ((EditBox) child).setFocus(child.isMouseOver(event.getMouseX(), event.getMouseY()));
+                    break;
+                }
+            }
+        }
+    }
     public static final RegistryObject<Item> PLAYER_SEED_ITEM = ITEMS.register("player_seed", () ->
             new PlayerSeedItem(new Item.Properties().stacksTo(8)));
 }
