@@ -147,9 +147,9 @@ dependencies {
     implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
     implementation fg.deobf("vazkii.quark:Quark:${quark_version}")
     implementation fg.deobf("vazkii.autoreglib:AutoRegLib:${arl_version}")
+    implementation fg.deobf("mezz.jei:jei-1.19.2-forge:${jei_version}")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchi_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.19.2-forge:${jei_version}")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

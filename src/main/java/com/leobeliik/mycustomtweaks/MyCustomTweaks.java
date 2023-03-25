@@ -104,7 +104,7 @@ public class MyCustomTweaks {
     }
 
     @SubscribeEvent
-    public void tomPlzRclick(ScreenEvent.MouseButtonPressed event) { //
+    public void tomPlzRclick(ScreenEvent.MouseButtonPressed event) {
         Screen screen = event.getScreen();
         if (screen.toString().contains("TerminalScreen")) {
             for (GuiEventListener child : screen.children()) {
