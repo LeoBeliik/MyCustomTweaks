@@ -18,7 +18,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -29,6 +28,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -68,7 +68,6 @@ public class MyCustomTweaks {
             float f = creeper.isPowered() ? 2.0F : 1.0F;
             event.getLevel().explode(null, creeper.getX(), creeper.getY(), creeper.getZ(), 3 * f, false, Explosion.BlockInteraction.BREAK);
         }
-
     }
 
     @SubscribeEvent
@@ -105,16 +104,19 @@ public class MyCustomTweaks {
 
     @SubscribeEvent
     public void tomPlzRclick(ScreenEvent.MouseButtonPressed event) {
-        Screen screen = event.getScreen();
-        if (screen.toString().contains("TerminalScreen")) {
-            for (GuiEventListener child : screen.children()) {
-                if (child instanceof EditBox) {
-                    ((EditBox) child).setFocus(child.isMouseOver(event.getMouseX(), event.getMouseY()));
-                    break;
+        if (FMLLoader.getLoadingModList().getModFileById("storagemodstoragemod") != null) {
+            Screen screen = event.getScreen();
+            if (screen.toString().contains("TerminalScreen")) {
+                for (GuiEventListener child : screen.children()) {
+                    if (child instanceof EditBox) {
+                        ((EditBox) child).setFocus(child.isMouseOver(event.getMouseX(), event.getMouseY()));
+                        break;
+                    }
                 }
             }
         }
     }
+
     public static final RegistryObject<Item> PLAYER_SEED_ITEM = ITEMS.register("player_seed", () ->
             new PlayerSeedItem(new Item.Properties().stacksTo(8)));
 }
