@@ -12,12 +12,14 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -32,14 +34,20 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.rod.SkiesRodItem;
+
+import java.util.regex.Pattern;
 
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
     static final String MODID = "mycustomtweaks";
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+
+    private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
 
     public MyCustomTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -84,9 +92,10 @@ public class MyCustomTweaks {
     @SubscribeEvent
     public void onUseTornado(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getEntity();
+        ItemStack itemstack = event.getItemStack();
+
         if (!player.isFallFlying() && player.getItemBySlot(EquipmentSlot.CHEST).canElytraFly(player)) {
             Level level = player.level;
-            ItemStack itemstack = event.getItemStack();
             if (itemstack.getItem() instanceof SkiesRodItem tornado) {
                 player.startFallFlying();
                 player.jumpFromGround();
@@ -96,15 +105,44 @@ public class MyCustomTweaks {
                 }
                 event.setCanceled(true);
                 event.setCancellationResult(level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME);
+                return;
             }
 
         }
+    }
 
+    @SubscribeEvent
+    public void tetraPlaceTorch(PlayerInteractEvent.RightClickBlock event) {
+        Player player = event.getEntity();
+        if (FMLLoader.getLoadingModList().getModFileById("tetra") != null) {
+            String tags = event.getItemStack().getOrCreateTag().getAllKeys().toString();
+            if (tags.contains("pickaxe_right") && tags.contains("pickaxe_left")) {
+                UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
+                BlockState block = event.getLevel().getBlockState(event.getPos());
+                if (!player.isCrouching() && (block.getMenuProvider(event.getLevel(), event.getPos()) != null || block.hasBlockEntity())) {
+                    return;
+                }
+                for (int i = 0; i < player.getInventory().getContainerSize(); ++i) {
+                    ItemStack stackAt = player.getInventory().getItem(i);
+                    if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
+                        ItemStack displayStack = stackAt.copy();
+                        InteractionResult did = PlayerHelper.substituteUse(ctx, stackAt);
+                        if (did.consumesAction()) {
+                            if (!ctx.getLevel().isClientSide) {
+                                ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
+                            }
+                            player.swing(event.getHand());
+                            player.getCooldowns().addCooldown(event.getItemStack().getItem(), 5);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent
     public void tomPlzRclick(ScreenEvent.MouseButtonPressed event) {
-        if (FMLLoader.getLoadingModList().getModFileById("storagemodstoragemod") != null) {
+        if (FMLLoader.getLoadingModList().getModFileById("storagemod") != null) {
             Screen screen = event.getScreen();
             if (screen.toString().contains("TerminalScreen")) {
                 for (GuiEventListener child : screen.children()) {
