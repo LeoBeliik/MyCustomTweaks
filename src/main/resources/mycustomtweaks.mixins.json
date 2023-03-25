@@ -14,7 +14,8 @@
     "ManuHaloMixin",
     "DrumMixin",
     "CrystalBowMixin",
-    "DontRestockMe"
+    "DontRestockMe",
+    "ManaRepairMixin"
   ],
   "injectors": {
     "defaultRequire": 1
