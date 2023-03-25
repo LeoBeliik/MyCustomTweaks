@@ -2,6 +2,7 @@ package com.leobeliik.mycustomtweaks.mixins;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fml.loading.FMLLoader;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,11 +22,13 @@ public class ManaRepairMixin {
     @Redirect(method = "Lvazkii/botania/common/impl/mana/ManaItemHandlerImpl;requestManaExact(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;IZ)Z",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isEmpty()Z"))
     public boolean requestManaExactForTool(ItemStack stack) {
-        if (noRepairItems.isEmpty()) {
-            noRepairItems = Arrays.asList(BotaniaItems.terrasteelBoots, BotaniaItems.terrasteelChest,
-                BotaniaItems.terrasteelHelm, BotaniaItems.terrasteelLegs, BotaniaItems.terraAxe, BotaniaItems.terraPick);
+        if (FMLLoader.getLoadingModList().getModFileById("tetra") != null) {
+            if (noRepairItems.isEmpty()) {
+                noRepairItems = Arrays.asList(BotaniaItems.terrasteelBoots, BotaniaItems.terrasteelChest,
+                        BotaniaItems.terrasteelHelm, BotaniaItems.terrasteelLegs, BotaniaItems.terraAxe, BotaniaItems.terraPick);
+            }
+            return noRepairItems.stream().anyMatch(stack::is);
         }
-
-        return noRepairItems.stream().anyMatch(stack::is);
+        return stack.isEmpty();
     }
 }
