@@ -11,6 +11,7 @@
   "mixins": [
     "TiaraMixin",
     "GravityLensMixin",
+    "DamageLensMixin",
     "ManuHaloMixin",
     "DrumMixin",
     "CrystalBowMixin",
