@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.leobeliik.mycustomtweaks.MyCustomTweaks.isTetra;
+
 @Mixin(ManaItemHandlerImpl.class)
 public class ManaRepairMixin {
 
@@ -22,7 +24,7 @@ public class ManaRepairMixin {
     @Redirect(method = "Lvazkii/botania/common/impl/mana/ManaItemHandlerImpl;requestManaExact(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;IZ)Z",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isEmpty()Z"))
     public boolean requestManaExactForTool(ItemStack stack) {
-        if (FMLLoader.getLoadingModList().getModFileById("tetra") != null) {
+        if (isTetra) {
             if (noRepairItems.isEmpty()) {
                 noRepairItems = Arrays.asList(BotaniaItems.terrasteelBoots, BotaniaItems.terrasteelChest,
                         BotaniaItems.terrasteelHelm, BotaniaItems.terrasteelLegs, BotaniaItems.terraAxe, BotaniaItems.terraPick);

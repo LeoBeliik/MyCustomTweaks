@@ -49,10 +49,12 @@ public class MyCustomTweaks {
 
     private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
 
+    public static boolean isTetra = false;
     public MyCustomTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         Registry();
+        isTetra = FMLLoader.getLoadingModList().getModFileById("tetra") != null;
     }
 
     private void Registry() {
@@ -114,7 +116,7 @@ public class MyCustomTweaks {
     @SubscribeEvent
     public void tetraPlaceTorch(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
-        if (FMLLoader.getLoadingModList().getModFileById("tetra") != null) {
+        if (isTetra) {
             String tags = event.getItemStack().getOrCreateTag().getAllKeys().toString();
             if (tags.contains("pickaxe_right") && tags.contains("pickaxe_left")) {
                 UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
