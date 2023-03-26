@@ -1,6 +1,7 @@
 package com.leobeliik.mycustomtweaks;
 
 import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
+import lilypuree.decorative_blocks.blocks.SupportBlock;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
@@ -117,10 +118,10 @@ public class MyCustomTweaks {
     public void tetraPlaceTorch(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
         if (isTetra) {
+            UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
             String tags = event.getItemStack().getOrCreateTag().getAllKeys().toString();
+            BlockState block = event.getLevel().getBlockState(event.getPos());
             if (tags.contains("pickaxe_right") && tags.contains("pickaxe_left")) {
-                UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
-                BlockState block = event.getLevel().getBlockState(event.getPos());
                 if (!player.isCrouching() && (block.getMenuProvider(event.getLevel(), event.getPos()) != null || block.hasBlockEntity())) {
                     return;
                 }
@@ -137,6 +138,13 @@ public class MyCustomTweaks {
                             player.getCooldowns().addCooldown(event.getItemStack().getItem(), 5);
                         }
                     }
+                }
+            } else if (tags.contains("axe_left") || tags.contains("axe_right")) { //tetra axe on decorative blocks
+                if (block.getBlock() instanceof SupportBlock) {
+                    if (!ctx.getLevel().isClientSide) {
+                        SupportBlock.onSupportActivation(block, event.getLevel(), event.getPos(), player, ctx.getClickLocation());
+                    }
+                    player.swing(event.getHand());
                 }
             }
         }
