@@ -51,6 +51,7 @@ public class MyCustomTweaks {
     private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
 
     public static boolean isTetra = false;
+
     public MyCustomTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -152,14 +153,12 @@ public class MyCustomTweaks {
 
     @SubscribeEvent
     public void tomPlzRclick(ScreenEvent.MouseButtonPressed event) {
-        if (FMLLoader.getLoadingModList().getModFileById("storagemod") != null) {
-            Screen screen = event.getScreen();
-            if (screen.toString().contains("TerminalScreen")) {
-                for (GuiEventListener child : screen.children()) {
-                    if (child instanceof EditBox) {
-                        ((EditBox) child).setFocus(child.isMouseOver(event.getMouseX(), event.getMouseY()));
-                        break;
-                    }
+        Screen screen = event.getScreen();
+        if (screen.toString().contains("TerminalScreen")) {
+            for (GuiEventListener child : screen.children()) {
+                if (child instanceof EditBox) {
+                    ((EditBox) child).setFocus(child.isMouseOver(event.getMouseX(), event.getMouseY()));
+                    break;
                 }
             }
         }
