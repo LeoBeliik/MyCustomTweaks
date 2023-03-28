@@ -120,7 +120,7 @@ public class MyCustomTweaks {
         Player player = event.getEntity();
         if (isTetra) {
             UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
-            String tags = event.getItemStack().getOrCreateTag().getAllKeys().toString();
+            String tags = event.getItemStack().getTags().toString();
             BlockState block = event.getLevel().getBlockState(event.getPos());
             if (tags.contains("pickaxe_right") && tags.contains("pickaxe_left")) {
                 if (!player.isCrouching() && (block.getMenuProvider(event.getLevel(), event.getPos()) != null || block.hasBlockEntity())) {

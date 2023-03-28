@@ -13,6 +13,6 @@ public class HoeMixin {
     @Inject(method = "Lvazkii/quark/content/tweaks/module/HoeHarvestingModule;isHoe(Lnet/minecraft/world/item/ItemStack;)Z",
             at = @At("RETURN"), remap = false)
     private static boolean isHoe(ItemStack itemStack, CallbackInfoReturnable cir) {
-        return itemStack.getOrCreateTag().getAllKeys().toString().contains("tools/hoes") || cir.getReturnValueZ();
+        return itemStack.getTags().toString().contains("tools/hoes") || cir.getReturnValueZ();
     }
 }
