@@ -1,6 +1,10 @@
 package com.leobeliik.mycustomtweaks;
 
 import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
+import com.simibubi.create.content.contraptions.components.deployer.DeployerBlock;
+import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
+import com.simibubi.create.content.contraptions.components.saw.SawBlock;
+import com.simibubi.create.content.contraptions.wrench.WrenchItem;
 import lilypuree.decorative_blocks.blocks.SupportBlock;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -25,6 +29,7 @@ import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -39,6 +44,7 @@ import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.rod.SkiesRodItem;
 
 import java.util.regex.Pattern;
@@ -109,7 +115,6 @@ public class MyCustomTweaks {
                 }
                 event.setCanceled(true);
                 event.setCancellationResult(level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME);
-                return;
             }
 
         }
@@ -118,10 +123,11 @@ public class MyCustomTweaks {
     @SubscribeEvent
     public void tetraPlaceTorch(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
+        BlockState block = event.getLevel().getBlockState(event.getPos());
+        Item item = event.getItemStack().getItem();
         if (isTetra) {
             UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
             String tags = event.getItemStack().getTags().toString();
-            BlockState block = event.getLevel().getBlockState(event.getPos());
             if (tags.contains("pickaxe_right") && tags.contains("pickaxe_left")) {
                 if (!player.isCrouching() && (block.getMenuProvider(event.getLevel(), event.getPos()) != null || block.hasBlockEntity())) {
                     return;
@@ -136,7 +142,7 @@ public class MyCustomTweaks {
                                 ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
                             }
                             player.swing(event.getHand());
-                            player.getCooldowns().addCooldown(event.getItemStack().getItem(), 5);
+                            player.getCooldowns().addCooldown(item, 5);
                         }
                     }
                 }
@@ -148,6 +154,19 @@ public class MyCustomTweaks {
                     player.swing(event.getHand());
                 }
             }
+        }
+
+        if ((block.getBlock() instanceof DeployerBlock || block.getBlock() instanceof SawBlock)
+                && (item instanceof WrenchItem && !player.isCrouching()) || item instanceof WandOfTheForestItem
+                ) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void noDeployPlacement(BlockEvent.EntityPlaceEvent event) {
+        if (event.getEntity() instanceof DeployerFakePlayer) {
+            event.setCanceled(true);
         }
     }
 
