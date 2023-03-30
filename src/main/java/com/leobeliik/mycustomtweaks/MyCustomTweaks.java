@@ -125,34 +125,31 @@ public class MyCustomTweaks {
         Player player = event.getEntity();
         BlockState block = event.getLevel().getBlockState(event.getPos());
         Item item = event.getItemStack().getItem();
-        if (isTetra) {
+        if (isTetra && event.getItemStack().getShareTag() != null) {
             UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
-            if (event.getItemStack().getShareTag() != null) {
-                String tags = event.getItemStack().getShareTag().toString();
-                if (tags.contains("pickaxe_left") || tags.contains("pickaxe_right")) {
-                    if (!player.isCrouching() && (block.getMenuProvider(event.getLevel(), event.getPos()) != null || block.hasBlockEntity())) {
-                        return;
-                    }
-                    for (int i = 0; i < player.getInventory().getContainerSize(); ++i) {
-                        ItemStack stackAt = player.getInventory().getItem(i);
-                        if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
-                            ItemStack displayStack = stackAt.copy();
-                            InteractionResult did = PlayerHelper.substituteUse(ctx, stackAt);
-                            if (did.consumesAction()) {
-                                if (!ctx.getLevel().isClientSide) {
-                                    ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
-                                }
-                                player.swing(event.getHand());
-                                player.getCooldowns().addCooldown(item, 5);
+            String tags = event.getItemStack().getShareTag().toString();
+            if (tags.contains("_axe_") && block.getBlock() instanceof SupportBlock) { //tetra axe on decorative blocks
+                if (!ctx.getLevel().isClientSide) {
+                    SupportBlock.onSupportActivation(block, event.getLevel(), event.getPos(), player, ctx.getClickLocation());
+                } else {
+                    player.swing(event.getHand());
+                }
+            } else if (tags.contains("_pickaxe_")) {
+                if (!player.isCrouching() && (block.getMenuProvider(event.getLevel(), event.getPos()) != null || block.hasBlockEntity())) {
+                    return;
+                }
+                for (int i = 0; i < player.getInventory().getContainerSize(); ++i) {
+                    ItemStack stackAt = player.getInventory().getItem(i);
+                    if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
+                        ItemStack displayStack = stackAt.copy();
+                        InteractionResult did = PlayerHelper.substituteUse(ctx, stackAt);
+                        if (did.consumesAction()) {
+                            if (!ctx.getLevel().isClientSide) {
+                                ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
                             }
+                            player.swing(event.getHand());
+                            player.getCooldowns().addCooldown(item, 5);
                         }
-                    }
-                } else if (tags.contains("axe_left") || tags.contains("axe_right")) { //tetra axe on decorative blocks
-                    if (block.getBlock() instanceof SupportBlock) {
-                        if (!ctx.getLevel().isClientSide) {
-                            SupportBlock.onSupportActivation(block, event.getLevel(), event.getPos(), player, ctx.getClickLocation());
-                        }
-                        player.swing(event.getHand());
                     }
                 }
             }
