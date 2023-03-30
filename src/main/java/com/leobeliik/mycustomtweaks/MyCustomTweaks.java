@@ -159,8 +159,7 @@ public class MyCustomTweaks {
         }
 
         if ((block.getBlock() instanceof DeployerBlock || block.getBlock() instanceof SawBlock)
-                && (item instanceof WrenchItem && !player.isCrouching()) || item instanceof WandOfTheForestItem
-        ) {
+                && ((item instanceof WrenchItem && !player.isCrouching()) || item instanceof WandOfTheForestItem)) {
             event.setCanceled(true);
         }
     }
