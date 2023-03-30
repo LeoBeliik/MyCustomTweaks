@@ -46,6 +46,7 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.rod.SkiesRodItem;
+
 import java.util.regex.Pattern;
 
 @Mod(MyCustomTweaks.MODID)
@@ -128,7 +129,7 @@ public class MyCustomTweaks {
             UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
             if (event.getItemStack().getShareTag() != null) {
                 String tags = event.getItemStack().getShareTag().toString();
-                if (event.getItemStack().getTags().anyMatch(t -> t.toString().contains("pickaxe_left") || t.toString().contains("pickaxe_right"))) {
+                if (tags.contains("pickaxe_left") || tags.contains("pickaxe_right")) {
                     if (!player.isCrouching() && (block.getMenuProvider(event.getLevel(), event.getPos()) != null || block.hasBlockEntity())) {
                         return;
                     }
@@ -146,7 +147,7 @@ public class MyCustomTweaks {
                             }
                         }
                     }
-                } else if (event.getItemStack().getTags().anyMatch(t -> t.toString().contains("axe_left") || t.toString().contains("axe_right"))) { //tetra axe on decorative blocks
+                } else if (tags.contains("axe_left") || tags.contains("axe_right")) { //tetra axe on decorative blocks
                     if (block.getBlock() instanceof SupportBlock) {
                         if (!ctx.getLevel().isClientSide) {
                             SupportBlock.onSupportActivation(block, event.getLevel(), event.getPos(), player, ctx.getClickLocation());
