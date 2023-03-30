@@ -46,7 +46,6 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.rod.SkiesRodItem;
-
 import java.util.regex.Pattern;
 
 @Mod(MyCustomTweaks.MODID)
@@ -127,38 +126,40 @@ public class MyCustomTweaks {
         Item item = event.getItemStack().getItem();
         if (isTetra) {
             UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
-            String tags = event.getItemStack().getTags().toString();
-            if (tags.contains("pickaxe_right") && tags.contains("pickaxe_left")) {
-                if (!player.isCrouching() && (block.getMenuProvider(event.getLevel(), event.getPos()) != null || block.hasBlockEntity())) {
-                    return;
-                }
-                for (int i = 0; i < player.getInventory().getContainerSize(); ++i) {
-                    ItemStack stackAt = player.getInventory().getItem(i);
-                    if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
-                        ItemStack displayStack = stackAt.copy();
-                        InteractionResult did = PlayerHelper.substituteUse(ctx, stackAt);
-                        if (did.consumesAction()) {
-                            if (!ctx.getLevel().isClientSide) {
-                                ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
+            if (event.getItemStack().getShareTag() != null) {
+                String tags = event.getItemStack().getShareTag().toString();
+                if (event.getItemStack().getTags().anyMatch(t -> t.toString().contains("pickaxe_left") || t.toString().contains("pickaxe_right"))) {
+                    if (!player.isCrouching() && (block.getMenuProvider(event.getLevel(), event.getPos()) != null || block.hasBlockEntity())) {
+                        return;
+                    }
+                    for (int i = 0; i < player.getInventory().getContainerSize(); ++i) {
+                        ItemStack stackAt = player.getInventory().getItem(i);
+                        if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
+                            ItemStack displayStack = stackAt.copy();
+                            InteractionResult did = PlayerHelper.substituteUse(ctx, stackAt);
+                            if (did.consumesAction()) {
+                                if (!ctx.getLevel().isClientSide) {
+                                    ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
+                                }
+                                player.swing(event.getHand());
+                                player.getCooldowns().addCooldown(item, 5);
                             }
-                            player.swing(event.getHand());
-                            player.getCooldowns().addCooldown(item, 5);
                         }
                     }
-                }
-            } else if (tags.contains("axe_left") || tags.contains("axe_right")) { //tetra axe on decorative blocks
-                if (block.getBlock() instanceof SupportBlock) {
-                    if (!ctx.getLevel().isClientSide) {
-                        SupportBlock.onSupportActivation(block, event.getLevel(), event.getPos(), player, ctx.getClickLocation());
+                } else if (event.getItemStack().getTags().anyMatch(t -> t.toString().contains("axe_left") || t.toString().contains("axe_right"))) { //tetra axe on decorative blocks
+                    if (block.getBlock() instanceof SupportBlock) {
+                        if (!ctx.getLevel().isClientSide) {
+                            SupportBlock.onSupportActivation(block, event.getLevel(), event.getPos(), player, ctx.getClickLocation());
+                        }
+                        player.swing(event.getHand());
                     }
-                    player.swing(event.getHand());
                 }
             }
         }
 
         if ((block.getBlock() instanceof DeployerBlock || block.getBlock() instanceof SawBlock)
                 && (item instanceof WrenchItem && !player.isCrouching()) || item instanceof WandOfTheForestItem
-                ) {
+        ) {
             event.setCanceled(true);
         }
     }
