@@ -11,12 +11,12 @@ import vazkii.botania.common.item.BotaniaItems;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import static com.leobeliik.mycustomtweaks.MyCustomTweaks.isTetra;
+//import static com.leobeliik.mycustomtweaks.MyCustomTweaks.isTetra;
 
 @Mixin(ManaItemHandlerImpl.class)
 public class ManaRepairMixin {
 
-    @Unique
+    /*@Unique
     private List<Item> noRepairItems = new ArrayList<>();
 
     @Redirect(method = "Lvazkii/botania/common/impl/mana/ManaItemHandlerImpl;requestManaExact(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;IZ)Z",
@@ -31,5 +31,5 @@ public class ManaRepairMixin {
             return noRepairItems.stream().anyMatch(stack::is);
         }
         return stack.isEmpty();
-    }
+    }*/
 }

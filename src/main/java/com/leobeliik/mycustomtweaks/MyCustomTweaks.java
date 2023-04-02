@@ -5,10 +5,6 @@ import com.simibubi.create.content.contraptions.components.deployer.DeployerBloc
 import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.contraptions.components.saw.SawBlock;
 import com.simibubi.create.content.contraptions.wrench.WrenchItem;
-import lilypuree.decorative_blocks.blocks.SupportBlock;
-import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -17,7 +13,6 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -25,7 +20,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -40,13 +34,10 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.rod.SkiesRodItem;
-
 import java.util.regex.Pattern;
 
 @Mod(MyCustomTweaks.MODID)
@@ -56,13 +47,13 @@ public class MyCustomTweaks {
 
     private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
 
-    public static boolean isTetra = false;
+    //public static boolean isTetra = false;
 
     public MyCustomTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         Registry();
-        isTetra = FMLLoader.getLoadingModList().getModFileById("tetra") != null;
+        //isTetra = FMLLoader.getLoadingModList().getModFileById("tetra") != null;
     }
 
     private void Registry() {
@@ -89,12 +80,13 @@ public class MyCustomTweaks {
     }
 
     @SubscribeEvent
-    public void onCorporeaUse(PlayerInteractEvent.RightClickBlock event) {
+    public void onItemUse(PlayerInteractEvent.RightClickBlock event) {
         if (event.getItemStack().is(Blocks.WITHER_ROSE.asItem()) && event.getEntity().isCrouching()) {
             event.setUseItem(Event.Result.DENY);
         }
         BlockEntity be = event.getLevel().getBlockEntity(event.getHitVec().getBlockPos());
-        if ((be instanceof BaseContainerBlockEntity || be instanceof SimpleInventoryBlockEntity) && event.getItemStack().is(BotaniaItems.corporeaSpark)) {
+        if ((be instanceof BaseContainerBlockEntity || be instanceof SimpleInventoryBlockEntity)
+                && (event.getItemStack().is(BotaniaItems.corporeaSpark) || event.getItemStack().is(BotaniaItems.corporeaSparkMaster))) {
             event.setUseBlock(Event.Result.DENY);
         }
     }
@@ -125,7 +117,7 @@ public class MyCustomTweaks {
         Player player = event.getEntity();
         BlockState block = event.getLevel().getBlockState(event.getPos());
         Item item = event.getItemStack().getItem();
-        if (isTetra && event.getItemStack().getShareTag() != null) {
+        /*if (isTetra && event.getItemStack().getShareTag() != null) {
             UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
             String tags = event.getItemStack().getShareTag().toString();
             if (tags.contains("_axe_") && block.getBlock() instanceof SupportBlock) { //tetra axe on decorative blocks
@@ -153,7 +145,7 @@ public class MyCustomTweaks {
                     }
                 }
             }
-        }
+        }*/
 
         if ((block.getBlock() instanceof DeployerBlock || block.getBlock() instanceof SawBlock)
                 && ((item instanceof WrenchItem && !player.isCrouching()) || item instanceof WandOfTheForestItem)) {
@@ -168,7 +160,7 @@ public class MyCustomTweaks {
         }
     }
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public void tomPlzRclick(ScreenEvent.MouseButtonPressed event) {
         Screen screen = event.getScreen();
         if (screen.toString().contains("TerminalScreen")) {
@@ -179,7 +171,7 @@ public class MyCustomTweaks {
                 }
             }
         }
-    }
+    }*/
 
     public static final RegistryObject<Item> PLAYER_SEED_ITEM = ITEMS.register("player_seed", () ->
             new PlayerSeedItem(new Item.Properties().stacksTo(8)));

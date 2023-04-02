@@ -16,8 +16,6 @@
     "DrumMixin",
     "CrystalBowMixin",
     "DontRestockMe",
-    "ManaRepairMixin",
-    "HoeMixin",
     "DeployerMixin",
     "SawMixin"
   ],

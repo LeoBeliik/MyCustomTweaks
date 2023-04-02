@@ -12,9 +12,9 @@ import java.util.Arrays;
 @Mixin(HoeHarvestingModule.class)
 public class HoeMixin {
 
-    @Inject(method = "Lvazkii/quark/content/tweaks/module/HoeHarvestingModule;isHoe(Lnet/minecraft/world/item/ItemStack;)Z",
+    /*@Inject(method = "Lvazkii/quark/content/tweaks/module/HoeHarvestingModule;isHoe(Lnet/minecraft/world/item/ItemStack;)Z",
             at = @At("RETURN"), remap = false)
     private static boolean isHoe(ItemStack itemStack, CallbackInfoReturnable cir) {
         return itemStack.getShareTag() != null && itemStack.getShareTag().toString().contains("double/hoe") || cir.getReturnValueZ();
-    }
+    }*/
 }
