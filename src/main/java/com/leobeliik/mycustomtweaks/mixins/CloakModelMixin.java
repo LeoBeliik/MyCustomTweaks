@@ -10,12 +10,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import vazkii.botania.client.model.CloakModel;
+import vazkii.botania.client.model.ModelCloak;
 
-@Mixin(CloakModel.class)
+@Mixin(ModelCloak.class)
 public class CloakModelMixin {
 
-    @Inject(method = "Lvazkii/botania/client/model/CloakModel;createMesh()Lnet/minecraft/client/model/geom/builders/MeshDefinition;",
+    @Inject(method = "Lvazkii/botania/client/model/ModelCloak;createMesh()Lnet/minecraft/client/model/geom/builders/MeshDefinition;",
             at = @At("RETURN"), remap = false)
     private static MeshDefinition cloakModelMixin(CallbackInfoReturnable cir) {
         MeshDefinition meshdefinition = new MeshDefinition();

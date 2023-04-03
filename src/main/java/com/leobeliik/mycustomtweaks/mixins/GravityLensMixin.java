@@ -6,12 +6,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.common.item.lens.GravityLens;
+import vazkii.botania.common.item.lens.LensGravity;
 
-@Mixin(GravityLens.class)
+@Mixin(LensGravity.class)
 public class GravityLensMixin {
 
-    @Inject(method = "Lvazkii/botania/common/item/lens/GravityLens;apply(Lnet/minecraft/world/item/ItemStack;Lvazkii/botania/api/mana/BurstProperties;)V",
+    @Inject(method = "Lvazkii/botania/common/item/lens/LensGravity;apply(Lnet/minecraft/world/item/ItemStack;Lvazkii/botania/api/mana/BurstProperties;)V",
             at = @At("TAIL"), remap = false)
     public void applyGravity(ItemStack stack, BurstProperties props, CallbackInfo ci) {
         props.gravity = 0.00325F;

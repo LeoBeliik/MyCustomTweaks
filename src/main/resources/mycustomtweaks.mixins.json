@@ -13,11 +13,7 @@
     "GravityLensMixin",
     "DamageLensMixin",
     "ManuHaloMixin",
-    "DrumMixin",
-    "CrystalBowMixin",
-    "DontRestockMe",
-    "DeployerMixin",
-    "SawMixin"
+    "DrumMixin"
   ],
   "injectors": {
     "defaultRequire": 1

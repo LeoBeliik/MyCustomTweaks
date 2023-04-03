@@ -14,8 +14,8 @@
   <component name="McpModuleSettings">
     <option name="mappingFile" value="E:\Projects\MyCustomTweaks\build\createMcpToSrg\output.tsrg" />
     <option name="mcpVersion" value="official_1.19.2" />
-    <option name="minecraftVersion" value="1.19.2" />
-    <option name="platformVersion" value="43.2.4" />
+    <option name="minecraftVersion" value="1.18.2" />
+    <option name="platformVersion" value="40.2.1" />
     <option name="srgType" value="TSRG" />
   </component>
 </module>

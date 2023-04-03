@@ -8,12 +8,12 @@ import net.minecraftforge.common.util.FakePlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import vazkii.botania.common.item.lens.DamagingLens;
+import vazkii.botania.common.item.lens.LensDamage;
 
-@Mixin(DamagingLens.class)
+@Mixin(LensDamage.class)
 public class DamageLensMixin {
 
-    @Redirect(method = "Lvazkii/botania/common/item/lens/DamagingLens;updateBurst(Lvazkii/botania/api/internal/ManaBurst;Lnet/minecraft/world/item/ItemStack;)V",
+    @Redirect(method = "Lvazkii/botania/common/item/lens/LensDamage;updateBurst(Lvazkii/botania/api/internal/ManaBurst;Lnet/minecraft/world/item/ItemStack;)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/ThrowableProjectile;getOwner()Lnet/minecraft/world/entity/Entity;"))
     public Entity updateBurst(ThrowableProjectile projectile) {
         return projectile.getOwner() == null ? new FakePlayer((ServerLevel) projectile.level, new GameProfile(null, "fake")) : projectile.getOwner();

@@ -11,10 +11,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.item.WorldSeedItem;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.item.ItemWorldSeed;
 
-public class PlayerSeedItem extends WorldSeedItem {
+public class PlayerSeedItem extends ItemWorldSeed {
     public PlayerSeedItem(Properties builder) {
         super(builder);
     }
@@ -30,13 +30,14 @@ public class PlayerSeedItem extends WorldSeedItem {
                 player.setYRot(0.0F);
                 player.teleportTo((double) coords.getX() + 0.5, (double) coords.getY() + 0.5, (double) coords.getZ() + 0.5);
 
-                while (!level.noCollision(player, player.getBoundingBox())) {
+                while (!level.noCollision(player, player.getBoundingBoxForCulling())) {
                     player.teleportTo(player.getX(), player.getY() + 1.0, player.getZ());
                 }
 
-                level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.worldSeedTeleport, SoundSource.PLAYERS, 1.0F, 1.0F);
+                level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.worldSeedTeleport, SoundSource.PLAYERS, 1.0F, 1.0F);
                 SparkleParticleData data = SparkleParticleData.sparkle(1.0F, 0.25F, 1.0F, 0.25F, 10);
-                ((ServerLevel) level).sendParticles(data, player.getX(), player.getY() + (double) (player.getBbHeight() / 2.0F), player.getZ(), 50, (double) (player.getBbWidth() / 8.0F), (double) (player.getBbHeight() / 4.0F), (double) (player.getBbWidth() / 8.0F), 0.0);
+                ((ServerLevel) level).sendParticles(data, player.getX(), player.getY() + (double) (player.getBbHeight() / 2.0F),
+                        player.getZ(), 50, player.getBbWidth() / 8.0F, player.getBbHeight() / 4.0F, player.getBbWidth() / 8.0F, 0.0);
                 stack.shrink(1);
             }
 
@@ -47,7 +48,7 @@ public class PlayerSeedItem extends WorldSeedItem {
     }
 
     private BlockPos getSurface(Level level, Player player) {
-        if (!level.canSeeSky(player.blockPosition())) {
+        if (!level.canSeeSky(player.getOnPos())) {
             for (int i = 0; i < 384; i++) {
                 BlockPos pos = new BlockPos(player.getX(), player.getY() + i, player.getZ());
                 if (level.canSeeSky(pos) && pos.getY() != player.getY()) {
