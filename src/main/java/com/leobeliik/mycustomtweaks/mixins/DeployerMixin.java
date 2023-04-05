@@ -1,6 +1,6 @@
 package com.leobeliik.mycustomtweaks.mixins;
 
-import com.simibubi.create.content.contraptions.components.deployer.DeployerBlock;
+/*import com.simibubi.create.content.contraptions.components.deployer.DeployerBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,4 +16,4 @@ public class DeployerMixin {
     public Direction getFacingForPlacement(BlockPlaceContext context, CallbackInfoReturnable cir) {
         return Direction.DOWN;
     }
-}
+}*/

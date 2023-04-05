@@ -1,6 +1,6 @@
 package com.leobeliik.mycustomtweaks.mixins;
 
-import net.minecraft.world.item.Item;
+/*import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -16,7 +16,7 @@ import java.util.List;
 @Mixin(ManaItemHandlerImpl.class)
 public class ManaRepairMixin {
 
-    /*@Unique
+    *//*@Unique
     private List<Item> noRepairItems = new ArrayList<>();
 
     @Redirect(method = "Lvazkii/botania/common/impl/mana/ManaItemHandlerImpl;requestManaExact(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;IZ)Z",
@@ -31,5 +31,5 @@ public class ManaRepairMixin {
             return noRepairItems.stream().anyMatch(stack::is);
         }
         return stack.isEmpty();
-    }*/
-}
+    }*//*
+}*/

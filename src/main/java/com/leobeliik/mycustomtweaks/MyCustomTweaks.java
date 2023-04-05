@@ -1,11 +1,10 @@
 package com.leobeliik.mycustomtweaks;
 
+import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
 import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
-import com.simibubi.create.content.contraptions.components.deployer.DeployerBlock;
-import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
-import com.simibubi.create.content.contraptions.components.saw.SawBlock;
-import com.simibubi.create.content.contraptions.wrench.WrenchItem;
+import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -16,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -113,11 +113,20 @@ public class MyCustomTweaks {
     }
 
     @SubscribeEvent
+    public void tetraPlaceTorch(BlockEvent.BreakEvent event) {
+        Level level = event.getPlayer().getLevel();
+        BlockPos pos = event.getPos();
+        if (level.getBlockEntity(pos) instanceof WoodenCrateBlockEntity crate) {
+            Containers.dropContents(level, pos, crate);
+        }
+    }
+
+    /*@SubscribeEvent
     public void tetraPlaceTorch(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
         BlockState block = event.getLevel().getBlockState(event.getPos());
         Item item = event.getItemStack().getItem();
-        /*if (isTetra && event.getItemStack().getShareTag() != null) {
+        *//*if (isTetra && event.getItemStack().getShareTag() != null) {
             UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
             String tags = event.getItemStack().getShareTag().toString();
             if (tags.contains("_axe_") && block.getBlock() instanceof SupportBlock) { //tetra axe on decorative blocks
@@ -145,20 +154,20 @@ public class MyCustomTweaks {
                     }
                 }
             }
-        }*/
+        }*//*
 
-        if ((block.getBlock() instanceof DeployerBlock || block.getBlock() instanceof SawBlock)
+        *//*if ((block.getBlock() instanceof DeployerBlock || block.getBlock() instanceof SawBlock)
                 && ((item instanceof WrenchItem && !player.isCrouching()) || item instanceof WandOfTheForestItem)) {
             event.setCanceled(true);
-        }
-    }
+        }*//*
+    }*/
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public void noDeployPlacement(BlockEvent.EntityPlaceEvent event) {
         if (event.getEntity() instanceof DeployerFakePlayer) {
             event.setCanceled(true);
         }
-    }
+    }*/
 
     /*@SubscribeEvent
     public void tomPlzRclick(ScreenEvent.MouseButtonPressed event) {

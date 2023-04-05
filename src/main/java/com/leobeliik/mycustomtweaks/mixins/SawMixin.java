@@ -1,6 +1,6 @@
 package com.leobeliik.mycustomtweaks.mixins;
 
-import com.simibubi.create.content.contraptions.base.DirectionalAxisKineticBlock;
+/*import com.simibubi.create.content.contraptions.base.DirectionalAxisKineticBlock;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerBlock;
 import com.simibubi.create.content.contraptions.components.saw.SawBlock;
 import net.minecraft.core.Direction;
@@ -25,4 +25,4 @@ public class SawMixin extends DirectionalAxisKineticBlock {
     protected Direction getFacingForPlacement(BlockPlaceContext context) {
         return Direction.UP;
     }
-}
+}*/
