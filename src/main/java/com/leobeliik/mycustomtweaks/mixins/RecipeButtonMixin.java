@@ -23,10 +23,9 @@ public class RecipeButtonMixin {
     @Shadow @Final private IRecipeLayoutInternal<?> recipeLayout;
 
     @Inject(method = "Lmezz/jei/common/gui/recipes/layout/RecipeTransferButton;onRelease(DD)V",
-    at = @At("TAIL"), remap = false)
+    at = @At("TAIL"))
     private void onClokc(double mouseX, double mouseY, CallbackInfo ci) {
         if (!((RecipeTransferButton) btn).active) {
-            ((RecipeTransferButton) btn).active = true;
             List<RecipeSlot> recipe = recipeLayout.getRecipeSlots().getSlots();
             IntStream.range(1, recipe.size()).mapToObj(recipe::get).map(recipeSlot -> {
                 return recipeSlot.getDisplayedItemStack().stream().findFirst();
@@ -34,6 +33,7 @@ public class RecipeButtonMixin {
                 requested.setCount(1);
                 IClientXplatAbstractions.INSTANCE.sendToServer(new PacketIndexKeybindRequest(requested));
             });
+            ((RecipeTransferButton) btn).active = true;
         } else {
             ((RecipeTransferButton) btn).onPress();
         }

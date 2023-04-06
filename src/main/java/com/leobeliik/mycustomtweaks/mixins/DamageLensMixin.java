@@ -13,7 +13,7 @@ import vazkii.botania.common.item.lens.LensDamage;
 @Mixin(LensDamage.class)
 public class DamageLensMixin {
 
-    @Redirect(method = "Lvazkii/botania/common/item/lens/LensDamage;updateBurst(Lvazkii/botania/api/internal/ManaBurst;Lnet/minecraft/world/item/ItemStack;)V",
+    @Redirect(method = "Lvazkii/botania/common/item/lens/LensDamage;updateBurst(Lvazkii/botania/api/internal/IManaBurst;Lnet/minecraft/world/item/ItemStack;)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/ThrowableProjectile;getOwner()Lnet/minecraft/world/entity/Entity;"))
     public Entity updateBurst(ThrowableProjectile projectile) {
         return projectile.getOwner() == null ? new FakePlayer((ServerLevel) projectile.level, new GameProfile(null, "fake")) : projectile.getOwner();

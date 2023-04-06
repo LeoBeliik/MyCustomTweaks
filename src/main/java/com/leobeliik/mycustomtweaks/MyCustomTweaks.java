@@ -1,7 +1,10 @@
 package com.leobeliik.mycustomtweaks;
 
+import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
 import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
-import net.minecraft.tags.BlockTags;
+import lilypuree.decorative_blocks.blocks.SupportBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -10,16 +13,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -29,7 +32,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import slimeknights.tconstruct.tools.TinkerTools;
 import vazkii.arl.block.be.SimpleInventoryBlockEntity;
+import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 
@@ -93,6 +99,33 @@ public class MyCustomTweaks {
                 event.setCancellationResult(level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME);
             }
 
+        }
+    }
+
+    @SubscribeEvent
+    public void onBlockBreak(BlockEvent.BreakEvent event) {
+        Level level = event.getPlayer().level;
+        BlockPos pos = event.getPos();
+        if (level.getBlockEntity(pos) instanceof WoodenCrateBlockEntity crate) {
+            Containers.dropContents(level, pos, crate);
+        }
+    }
+
+    @SubscribeEvent
+    public void onRClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        Player player = (Player) event.getEntity();
+        Level level = event.getWorld();
+        BlockState block = level.getBlockState(event.getPos());
+        ItemStack stack = event.getItemStack();
+        UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
+        boolean isTICAxe = stack.is(TinkerTools.mattock.asItem()) || stack.is(TinkerTools.handAxe.asItem()) || stack.is(TinkerTools.broadAxe.asItem());
+
+        if (isTICAxe && block.getBlock() instanceof SupportBlock) { //tinker axe on decorative blocks
+            if (!ctx.getLevel().isClientSide) {
+                SupportBlock.onSupportActivation(block, level, event.getPos(), player, ctx.getClickLocation());
+            } else {
+                player.swing(event.getHand());
+            }
         }
     }
 
