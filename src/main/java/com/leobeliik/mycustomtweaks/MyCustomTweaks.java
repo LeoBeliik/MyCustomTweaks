@@ -2,8 +2,10 @@ package com.leobeliik.mycustomtweaks;
 
 import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
 import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
+import com.leobeliik.mycustomtweaks.mixins.ShootMybeam;
 import lilypuree.decorative_blocks.blocks.SupportBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -33,13 +35,21 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.ToolDefinitions;
+import tcintegrations.items.modifiers.tool.TerraModifier;
 import vazkii.arl.block.be.SimpleInventoryBlockEntity;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
+import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
+import vazkii.botania.network.serverbound.PacketLeftClick;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import java.util.regex.Pattern;
+
+import static vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword.getBurst;
 
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
@@ -73,8 +83,8 @@ public class MyCustomTweaks {
         if (event.getItemStack().is(Blocks.WITHER_ROSE.asItem()) && event.getEntity().isCrouching()) {
             event.setUseItem(Event.Result.DENY);
         }
-
         BlockEntity be = event.getWorld().getBlockEntity(event.getHitVec().getBlockPos());
+
         if ((be instanceof BaseContainerBlockEntity || be instanceof SimpleInventoryBlockEntity)
                 && (event.getItemStack().is(ModItems.corporeaSpark) || event.getItemStack().is(ModItems.corporeaSparkMaster))) {
             event.setUseBlock(Event.Result.DENY);

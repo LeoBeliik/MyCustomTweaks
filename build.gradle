@@ -151,6 +151,7 @@ dependencies {
     implementation fg.deobf("mezz.jei:jei-1.18.2-forge:${jei_version}")
     implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}")
     implementation fg.deobf("curse.maven:decor_blocks-362528:3965454")
+    implementation fg.deobf("curse.maven:tic_integrations-602680:4095272")
     implementation fg.deobf("slimeknights.tconstruct:TConstruct:${tic_version}")
     implementation fg.deobf("slimeknights.mantle:Mantle:${mantle_version}")
     //implementation fg.deobf("com.simibubi.create:create-${create_version}:slim")

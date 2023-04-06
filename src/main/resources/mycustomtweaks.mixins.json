@@ -13,7 +13,9 @@
     "GravityLensMixin",
     "DamageLensMixin",
     "ManuHaloMixin",
-    "DrumMixin"
+    "DrumMixin",
+    "NoManaMod",
+    "ShootMybeam"
   ],
   "injectors": {
     "defaultRequire": 1
