@@ -15,7 +15,8 @@
     "ManuHaloMixin",
     "DrumMixin",
     "CrystalBowMixin",
-    "DontRestockMe"
+    "DeployerMixin",
+    "SawMixin"
   ],
   "injectors": {
     "defaultRequire": 1
