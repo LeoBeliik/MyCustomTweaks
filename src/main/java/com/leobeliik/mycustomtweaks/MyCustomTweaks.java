@@ -15,11 +15,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -30,22 +28,19 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.rod.SkiesRodItem;
-import java.util.regex.Pattern;
 
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
     static final String MODID = "mycustomtweaks";
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
-    private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
+    //private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
 
     //public static boolean isTetra = false;
 
@@ -113,13 +108,14 @@ public class MyCustomTweaks {
     }
 
     @SubscribeEvent
-    public void tetraPlaceTorch(BlockEvent.BreakEvent event) {
+    public void OnBreakEvent(BlockEvent.BreakEvent event) {
         Level level = event.getPlayer().getLevel();
         BlockPos pos = event.getPos();
         if (level.getBlockEntity(pos) instanceof WoodenCrateBlockEntity crate) {
             Containers.dropContents(level, pos, crate);
         }
     }
+
 
     /*@SubscribeEvent
     public void tetraPlaceTorch(PlayerInteractEvent.RightClickBlock event) {
@@ -156,10 +152,10 @@ public class MyCustomTweaks {
             }
         }*//*
 
-        *//*if ((block.getBlock() instanceof DeployerBlock || block.getBlock() instanceof SawBlock)
+        if ((block.getBlock() instanceof DeployerBlock || block.getBlock() instanceof SawBlock)
                 && ((item instanceof WrenchItem && !player.isCrouching()) || item instanceof WandOfTheForestItem)) {
             event.setCanceled(true);
-        }*//*
+        }
     }*/
 
     /*@SubscribeEvent

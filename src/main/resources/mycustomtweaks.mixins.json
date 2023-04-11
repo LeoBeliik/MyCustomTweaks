@@ -15,8 +15,7 @@
     "ManuHaloMixin",
     "DrumMixin",
     "CrystalBowMixin",
-    "DeployerMixin",
-    "SawMixin"
+    "ThermoMixin"
   ],
   "injectors": {
     "defaultRequire": 1
