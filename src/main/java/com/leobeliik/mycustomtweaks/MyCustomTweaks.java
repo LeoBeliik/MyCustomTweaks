@@ -3,7 +3,11 @@ package com.leobeliik.mycustomtweaks;
 import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
 import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
 import lilypuree.decorative_blocks.blocks.SupportBlock;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -21,6 +25,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -42,6 +47,7 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.rod.SkiesRodItem;
 
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Mod(MyCustomTweaks.MODID)
@@ -126,19 +132,22 @@ public class MyCustomTweaks {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onBlockRclick(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
-        BlockState block = event.getLevel().getBlockState(event.getPos());
+        Level level = event.getLevel();
+        BlockPos pos = event.getPos();
+        BlockState block = level.getBlockState(pos);
         Item item = event.getItemStack().getItem();
+        InteractionHand hand = event.getHand();
         if (event.getItemStack().getShareTag() != null) {
-            UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
+            UseOnContext ctx = new UseOnContext(player, hand, event.getHitVec());
             String tags = event.getItemStack().getShareTag().toString();
             if ((tags.contains("axe") || tags.contains("adze")) && block.getBlock() instanceof SupportBlock) { //tetra axe on decorative blocks
                 if (!ctx.getLevel().isClientSide) {
-                    SupportBlock.onSupportActivation(block, event.getLevel(), event.getPos(), player, ctx.getClickLocation());
+                    SupportBlock.onSupportActivation(block, level, pos, player, ctx.getClickLocation());
                 } else {
-                    player.swing(event.getHand());
+                    player.swing(hand);
                 }
             } else if (tags.contains("_pickaxe_")) {
-                if (!player.isCrouching() && (block.getMenuProvider(event.getLevel(), event.getPos()) != null || block.hasBlockEntity())) {
+                if (!player.isCrouching() && (block.getMenuProvider(level, pos) != null || block.hasBlockEntity())) {
                     return;
                 }
                 for (int i = 0; i < player.getInventory().getContainerSize(); ++i) {
@@ -150,7 +159,7 @@ public class MyCustomTweaks {
                             if (!ctx.getLevel().isClientSide) {
                                 ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
                             }
-                            player.swing(event.getHand());
+                            player.swing(hand);
                             player.getCooldowns().addCooldown(item, 5);
                         }
                     }
