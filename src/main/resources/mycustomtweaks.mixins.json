@@ -15,7 +15,8 @@
     "ManuHaloMixin",
     "DrumMixin",
     "CrystalBowMixin",
-    "ThermoMixin"
+    "ThermoMixin",
+    "ManaRepairMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -2,6 +2,7 @@ package com.leobeliik.mycustomtweaks;
 
 import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
 import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
+import lilypuree.decorative_blocks.blocks.SupportBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.Containers;
@@ -12,43 +13,49 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.rod.SkiesRodItem;
+
+import java.util.regex.Pattern;
 
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
     static final String MODID = "mycustomtweaks";
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
-    //private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
+    private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
 
-    //public static boolean isTetra = false;
 
     public MyCustomTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         Registry();
-        //isTetra = FMLLoader.getLoadingModList().getModFileById("tetra") != null;
     }
 
     private void Registry() {
@@ -116,16 +123,15 @@ public class MyCustomTweaks {
         }
     }
 
-
-    /*@SubscribeEvent
-    public void tetraPlaceTorch(PlayerInteractEvent.RightClickBlock event) {
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onBlockRclick(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
         BlockState block = event.getLevel().getBlockState(event.getPos());
         Item item = event.getItemStack().getItem();
-        *//*if (isTetra && event.getItemStack().getShareTag() != null) {
+        if (event.getItemStack().getShareTag() != null) {
             UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
             String tags = event.getItemStack().getShareTag().toString();
-            if (tags.contains("_axe_") && block.getBlock() instanceof SupportBlock) { //tetra axe on decorative blocks
+            if ((tags.contains("axe") || tags.contains("adze")) && block.getBlock() instanceof SupportBlock) { //tetra axe on decorative blocks
                 if (!ctx.getLevel().isClientSide) {
                     SupportBlock.onSupportActivation(block, event.getLevel(), event.getPos(), player, ctx.getClickLocation());
                 } else {
@@ -150,33 +156,8 @@ public class MyCustomTweaks {
                     }
                 }
             }
-        }*//*
-
-        if ((block.getBlock() instanceof DeployerBlock || block.getBlock() instanceof SawBlock)
-                && ((item instanceof WrenchItem && !player.isCrouching()) || item instanceof WandOfTheForestItem)) {
-            event.setCanceled(true);
         }
-    }*/
-
-    /*@SubscribeEvent
-    public void noDeployPlacement(BlockEvent.EntityPlaceEvent event) {
-        if (event.getEntity() instanceof DeployerFakePlayer) {
-            event.setCanceled(true);
-        }
-    }*/
-
-    /*@SubscribeEvent
-    public void tomPlzRclick(ScreenEvent.MouseButtonPressed event) {
-        Screen screen = event.getScreen();
-        if (screen.toString().contains("TerminalScreen")) {
-            for (GuiEventListener child : screen.children()) {
-                if (child instanceof EditBox) {
-                    ((EditBox) child).setFocus(child.isMouseOver(event.getMouseX(), event.getMouseY()));
-                    break;
-                }
-            }
-        }
-    }*/
+    }
 
     public static final RegistryObject<Item> PLAYER_SEED_ITEM = ITEMS.register("player_seed", () ->
             new PlayerSeedItem(new Item.Properties().stacksTo(8)));
