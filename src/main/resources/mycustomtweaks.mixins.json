@@ -17,7 +17,8 @@
     "CrystalBowMixin",
     "ThermoMixin",
     "ManaRepairMixin",
-    "DieselToolMixin"
+    "DieselToolMixin",
+    "HoeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
