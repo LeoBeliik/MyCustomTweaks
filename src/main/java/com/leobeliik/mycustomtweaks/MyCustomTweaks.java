@@ -3,14 +3,19 @@ package com.leobeliik.mycustomtweaks;
 import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerBlock;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
+import com.simibubi.create.content.contraptions.components.deployer.DeployerTileEntity;
 import com.simibubi.create.content.contraptions.components.saw.SawBlock;
 import com.simibubi.create.content.contraptions.wrench.WrenchItem;
+import com.simibubi.create.content.logistics.trains.management.edgePoint.station.StationTileEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AirItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -20,6 +25,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -38,6 +45,8 @@ import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.rod.SkiesRodItem;
+
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 @Mod(MyCustomTweaks.MODID)
@@ -146,10 +155,16 @@ public class MyCustomTweaks {
                 }
             }
         }*/
-
         if ((block.getBlock() instanceof DeployerBlock || block.getBlock() instanceof SawBlock)
                 && ((item instanceof WrenchItem && !player.isCrouching()) || item instanceof WandOfTheForestItem)) {
             event.setCanceled(true);
+        }
+        Level level = event.getLevel();
+        BlockPos pos = event.getPos();
+
+        if (level.getBlockEntity(pos) instanceof DeployerTileEntity dep && level.getBlockEntity(pos.below(2)) instanceof StationTileEntity
+            && item instanceof AirItem && dep.getPlayer() != null && dep.getPlayer().getMainHandItem().getItem() instanceof WrenchItem) {
+            dep.changeMode(); //set to punch for the steam n rails station thing
         }
     }
 

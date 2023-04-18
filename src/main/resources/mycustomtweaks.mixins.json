@@ -15,7 +15,6 @@
     "ManuHaloMixin",
     "DrumMixin",
     "CrystalBowMixin",
-    "DontRestockMe",
     "DeployerMixin",
     "SawMixin"
   ],
