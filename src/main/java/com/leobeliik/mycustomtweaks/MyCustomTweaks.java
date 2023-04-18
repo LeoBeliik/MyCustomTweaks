@@ -15,9 +15,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AirItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -28,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
@@ -122,54 +121,14 @@ public class MyCustomTweaks {
     }
 
     @SubscribeEvent
-    public void tetraPlaceTorch(PlayerInteractEvent.RightClickBlock event) {
-        Player player = event.getEntity();
-        BlockState block = event.getLevel().getBlockState(event.getPos());
-        Item item = event.getItemStack().getItem();
-        /*if (isTetra && event.getItemStack().getShareTag() != null) {
-            UseOnContext ctx = new UseOnContext(player, event.getHand(), event.getHitVec());
-            String tags = event.getItemStack().getShareTag().toString();
-            if (tags.contains("_axe_") && block.getBlock() instanceof SupportBlock) { //tetra axe on decorative blocks
-                if (!ctx.getLevel().isClientSide) {
-                    SupportBlock.onSupportActivation(block, event.getLevel(), event.getPos(), player, ctx.getClickLocation());
-                } else {
-                    player.swing(event.getHand());
-                }
-            } else if (tags.contains("_pickaxe_")) {
-                if (!player.isCrouching() && (block.getMenuProvider(event.getLevel(), event.getPos()) != null || block.hasBlockEntity())) {
-                    return;
-                }
-                for (int i = 0; i < player.getInventory().getContainerSize(); ++i) {
-                    ItemStack stackAt = player.getInventory().getItem(i);
-                    if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
-                        ItemStack displayStack = stackAt.copy();
-                        InteractionResult did = PlayerHelper.substituteUse(ctx, stackAt);
-                        if (did.consumesAction()) {
-                            if (!ctx.getLevel().isClientSide) {
-                                ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
-                            }
-                            player.swing(event.getHand());
-                            player.getCooldowns().addCooldown(item, 5);
-                        }
-                    }
-                }
-            }
-        }*/
-        if ((block.getBlock() instanceof DeployerBlock || block.getBlock() instanceof SawBlock)
-                && ((item instanceof WrenchItem && !player.isCrouching()) || item instanceof WandOfTheForestItem)) {
+    public void noDeployPlacement(BlockEvent.EntityPlaceEvent event) {
+        if (event.getEntity() instanceof DeployerFakePlayer) {
             event.setCanceled(true);
-        }
-        Level level = event.getLevel();
-        BlockPos pos = event.getPos();
-
-        if (level.getBlockEntity(pos) instanceof DeployerTileEntity dep && level.getBlockEntity(pos.below(2)) instanceof StationTileEntity
-            && item instanceof AirItem && dep.getPlayer() != null && dep.getPlayer().getMainHandItem().getItem() instanceof WrenchItem) {
-            dep.changeMode(); //set to punch for the steam n rails station thing
         }
     }
 
     @SubscribeEvent
-    public void noDeployPlacement(BlockEvent.EntityPlaceEvent event) {
+    public void noDeployPlacement(AttackEntityEvent event) {
         if (event.getEntity() instanceof DeployerFakePlayer) {
             event.setCanceled(true);
         }
