@@ -16,7 +16,8 @@
     "DrumMixin",
     "CrystalBowMixin",
     "DeployerMixin",
-    "SawMixin"
+    "SawMixin",
+    "MagnetRingMixin"
   ],
   "injectors": {
     "defaultRequire": 1
