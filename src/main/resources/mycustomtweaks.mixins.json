@@ -17,7 +17,8 @@
     "CrystalBowMixin",
     "DeployerMixin",
     "SawMixin",
-    "MagnetRingMixin"
+    "MagnetRingMixin",
+    "TerraShatMixin"
   ],
   "injectors": {
     "defaultRequire": 1

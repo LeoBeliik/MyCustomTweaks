@@ -116,7 +116,7 @@ public class MyCustomTweaks {
     }
 
     @SubscribeEvent
-    public void noDeployPlacement(AttackEntityEvent event) {
+    public void noDeployAttack(AttackEntityEvent event) {
         if (event.getEntity() instanceof DeployerFakePlayer) {
             event.setCanceled(true);
         }
