@@ -5,8 +5,7 @@
   "compatibilityLevel": "JAVA_16",
   "client": [
     "ManaBurstEntityMixin",
-    "CloakModelMixin",
-    "RecipeButtonMixin"
+    "CloakModelMixin"
   ],
   "mixins": [
     "TiaraMixin",
