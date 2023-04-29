@@ -14,7 +14,7 @@
     "ManuHaloMixin",
     "DrumMixin",
     "CrystalBowMixin",
-    "DeployerMixin",
+    "SawTileMixin",
     "SawMixin",
     "MagnetRingMixin",
     "TerraShatMixin"
