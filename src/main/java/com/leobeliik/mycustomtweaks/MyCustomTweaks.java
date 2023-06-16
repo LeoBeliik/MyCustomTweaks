@@ -1,7 +1,7 @@
 package com.leobeliik.mycustomtweaks;
 
 import com.leobeliik.mycustomtweaks.items.PlayerSeedItem;
-import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
+import com.simibubi.create.content.kinetics.deployer.DeployerFakePlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
