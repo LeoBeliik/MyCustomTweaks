@@ -145,16 +145,16 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.19.2-43.2.4'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
+    //implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
     implementation fg.deobf("vazkii.quark:Quark:${quark_version}")
     implementation fg.deobf("vazkii.autoreglib:AutoRegLib:${arl_version}")
     implementation fg.deobf("mezz.jei:jei-1.19.2-forge:${jei_version}")
-    //implementation fg.deobf("curse.maven:decor_blocks-362528:3941638")
+    implementation fg.deobf("curse.maven:decor_blocks-362528:3941638")
     implementation fg.deobf("com.simibubi.create:create-${create_version}:slim") { transitive = false }
     runtimeOnly fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_version}")
     runtimeOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
-    //runtimeOnly fg.deobf("curse.maven:tetra-289712:4448541")
-    //runtimeOnly fg.deobf("curse.maven:mutil-351914:3941314")
+    runtimeOnly fg.deobf("curse.maven:tetra-289712:4448541")
+    runtimeOnly fg.deobf("curse.maven:mutil-351914:3941314")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchi_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
 }

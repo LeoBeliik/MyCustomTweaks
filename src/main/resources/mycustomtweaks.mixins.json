@@ -3,21 +3,8 @@
   "minVersion": "0.8",
   "package": "com.leobeliik.mycustomtweaks.mixins",
   "compatibilityLevel": "JAVA_16",
-  "client": [
-    "ManaBurstEntityMixin",
-    "CloakModelMixin"
-  ],
-  "mixins": [
-    "TiaraMixin",
-    "GravityLensMixin",
-    "DamageLensMixin",
-    "DrumMixin",
-    "CrystalBowMixin",
-    "SawTileMixin",
-    "SawMixin",
-    "MagnetRingMixin",
-    "TerraShatMixin"
-  ],
+  "client": [],
+  "mixins": [],
   "injectors": {
     "defaultRequire": 1
   },
