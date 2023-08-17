@@ -4,18 +4,9 @@
   "package": "com.leobeliik.mycustomtweaks.mixins",
   "compatibilityLevel": "JAVA_16",
   "client": [
-    "ManaBurstEntityMixin",
-    "CloakModelMixin",
-    "RecipeButtonMixin"
   ],
   "mixins": [
-    "TiaraMixin",
-    "GravityLensMixin",
-    "DamageLensMixin",
-    "ManuHaloMixin",
-    "DrumMixin",
-    "NoManaMod",
-    "ShootMybeam"
+    "tfch_shut_up"
   ],
   "injectors": {
     "defaultRequire": 1
