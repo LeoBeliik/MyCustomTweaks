@@ -6,7 +6,8 @@
   "client": [
   ],
   "mixins": [
-    "tfch_shut_up"
+    "tfch_shut_up",
+    "ap_toggle"
   ],
   "injectors": {
     "defaultRequire": 1
