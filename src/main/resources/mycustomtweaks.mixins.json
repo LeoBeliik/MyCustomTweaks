@@ -8,7 +8,8 @@
   "mixins": [
     "tfch_shut_up",
     "ap_toggle",
-    "waterwheels_tweaks"
+    "waterwheels_tweaks",
+    "auto_bellows"
   ],
   "injectors": {
     "defaultRequire": 1
