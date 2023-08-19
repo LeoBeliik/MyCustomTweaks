@@ -135,11 +135,10 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    maven { url 'https://maven.blamejared.com' } //violent moon mods
+    maven { url = "https://maven.blamejared.com" } //violent moon mods
     maven { url = "https://maven.theillusivec4.top/" } //Curios
-    maven { url "https://dvs1.progwml6.com/files/maven/" } //JEI, tinkers and mantle
-    maven { url "https://cursemaven.com" } //CurseForge
-    maven { url = 'https://maven.tterrag.com/' } //create
+    maven { url = "https://cursemaven.com" } //CurseForge
+    maven { url = "https://maven.tterrag.com/" } //create
 }
 
 dependencies {
@@ -150,6 +149,8 @@ dependencies {
     implementation fg.deobf("curse.maven:tfl-453394:${tfl_version}")
     implementation fg.deobf("curse.maven:tfl-405263:${tfh_version}")
     implementation fg.deobf("curse.maven:tfl-674852:${ap_version}")
+    implementation fg.deobf("curse.maven:sups-412082:${sups_version}")
+    implementation fg.deobf("curse.maven:selene-499980:${selene_version}")
     //implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
     implementation fg.deobf("vazkii.quark:Quark:${quark_version}")
     implementation fg.deobf("vazkii.autoreglib:AutoRegLib:${arl_version}")
