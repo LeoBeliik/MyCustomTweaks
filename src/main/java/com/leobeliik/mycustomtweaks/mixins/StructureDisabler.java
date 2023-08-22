@@ -27,7 +27,15 @@ public class StructureDisabler {
     @Inject(method = "tryGenerateStructure", at = @At("HEAD"), cancellable = true)
     private void disableStructuresAroundSpawn(StructureSet.StructureSelectionEntry structureSelectionEntry, StructureManager structureManager, RegistryAccess registryAccess, RandomState randomState, StructureTemplateManager structureTemplateManager, long seed, ChunkAccess chunkAccess, ChunkPos chunkPos, SectionPos sectionPos, CallbackInfoReturnable<Boolean> cir) {
         if (abs(chunkPos.x) < 8 && abs(chunkPos.z) < 8) {
-            if (Arrays.stream(ignore).noneMatch(s -> structureSelectionEntry.structure().value().toString().toLowerCase().contains(s))) {
+            boolean result = true;
+            for (String s : ignore) {
+                if (structureSelectionEntry.structure().value().toString().toLowerCase().contains(s)) {
+                    result = false;
+                    break;
+                }
+            }
+
+            if (result) {
                 cir.setReturnValue(false);
             }
         }
