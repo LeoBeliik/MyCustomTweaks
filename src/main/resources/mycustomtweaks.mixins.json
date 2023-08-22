@@ -9,7 +9,8 @@
     "tfch_shut_up",
     "ap_toggle",
     "waterwheels_tweaks",
-    "auto_bellows"
+    "auto_bellows",
+    "limited_bundles"
   ],
   "injectors": {
     "defaultRequire": 1
