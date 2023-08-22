@@ -24,9 +24,12 @@ public class StructureDisabler {
     @Unique
     private static final String[] ignore = {"fort", "shaft", "fossil", "stronghold", "buried", "ship", "ocean", "treasure"};
 
+    @Unique
+    private static final int graceChunks = 20;
+
     @Inject(method = "tryGenerateStructure", at = @At("HEAD"), cancellable = true)
     private void disableStructuresAroundSpawn(StructureSet.StructureSelectionEntry structureSelectionEntry, StructureManager structureManager, RegistryAccess registryAccess, RandomState randomState, StructureTemplateManager structureTemplateManager, long seed, ChunkAccess chunkAccess, ChunkPos chunkPos, SectionPos sectionPos, CallbackInfoReturnable<Boolean> cir) {
-        if (abs(chunkPos.x) < 8 && abs(chunkPos.z) < 8) {
+        if (abs(chunkPos.x) < graceChunks && abs(chunkPos.z) < graceChunks) {
             boolean result = true;
             for (String s : ignore) {
                 if (structureSelectionEntry.structure().value().toString().toLowerCase().contains(s)) {
