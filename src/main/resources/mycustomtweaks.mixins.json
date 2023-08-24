@@ -4,7 +4,9 @@
   "package": "com.leobeliik.mycustomtweaks.mixins",
   "compatibilityLevel": "JAVA_16",
   "client": [],
-  "mixins": ["StructureDisabler"],
+  "mixins": [
+    "StructureDisabler"
+  ],
   "injectors": {
     "defaultRequire": 1
   },
