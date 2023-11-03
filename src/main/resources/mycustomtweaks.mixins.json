@@ -6,11 +6,9 @@
   "client": [
   ],
   "mixins": [
-    "tfch_shut_up",
     "ap_toggle",
     "waterwheels_tweaks",
-    "auto_bellows",
-    "limited_bundles"
+    "diesel_tools"
   ],
   "injectors": {
     "defaultRequire": 1
