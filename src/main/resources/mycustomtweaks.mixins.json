@@ -6,9 +6,7 @@
   "client": [
   ],
   "mixins": [
-    "ap_toggle",
-    "waterwheels_tweaks",
-    "diesel_tools"
+    "ap_toggle"
   ],
   "injectors": {
     "defaultRequire": 1
