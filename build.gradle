@@ -146,9 +146,10 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     implementation fg.deobf("curse.maven:tfc-302973:${tfc_version}")
+    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
+    implementation fg.deobf("curse.maven:ap-674852:${ap_version}")
     //implementation fg.deobf("curse.maven:tfl-453394:${tfl_version}")
     //implementation fg.deobf("curse.maven:tfl-405263:${tfh_version}")
-    implementation fg.deobf("curse.maven:ap-674852:${ap_version}")
     //implementation fg.deobf("curse.maven:sups-412082:${sups_version}")
     //implementation fg.deobf("curse.maven:selene-499980:${selene_version}")
     //implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
@@ -166,7 +167,6 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:tetra-289712:4448541")
     //runtimeOnly fg.deobf("curse.maven:mutil-351914:3941314")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchi_version}")
-    //runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
