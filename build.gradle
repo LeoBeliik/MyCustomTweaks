@@ -149,7 +149,7 @@ dependencies {
     implementation fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
     implementation fg.deobf("curse.maven:ap-674852:${ap_version}")
     //implementation fg.deobf("curse.maven:tfl-453394:${tfl_version}")
-    //implementation fg.deobf("curse.maven:tfl-405263:${tfh_version}")
+    //implementation fg.deobf("curse.maven:tfh-405263:${tfh_version}")
     //implementation fg.deobf("curse.maven:sups-412082:${sups_version}")
     //implementation fg.deobf("curse.maven:selene-499980:${selene_version}")
     //implementation fg.deobf("vazkii.botania:Botania:${botania_version}")

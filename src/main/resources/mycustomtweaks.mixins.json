@@ -6,7 +6,8 @@
   "client": [
   ],
   "mixins": [
-    "ap_toggle"
+    "ap_toggle",
+    "javDamage"
   ],
   "injectors": {
     "defaultRequire": 1
