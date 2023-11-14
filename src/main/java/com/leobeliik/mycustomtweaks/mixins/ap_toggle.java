@@ -1,6 +1,7 @@
 package com.leobeliik.mycustomtweaks.mixins;
 
 import com.firemerald.additionalplacements.block.interfaces.IPlacementBlock;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -10,12 +11,13 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import java.util.Arrays;
 
+import static com.leobeliik.mycustomtweaks.MyCustomTweaks.APtag;
+
 @Mixin(IPlacementBlock.class)
 public interface ap_toggle {
 
     @Overwrite(remap = false)
     default boolean disablePlacement(BlockPos pos, Level level, Direction direction) {
-        Player player = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 2.0D, null);
-        return player == null || !Arrays.toString(player.getItemInHand(InteractionHand.OFF_HAND).getTags().toArray()).contains("hammer");
+        return !Minecraft.getInstance().player.getTags().contains(APtag);
     }
 }

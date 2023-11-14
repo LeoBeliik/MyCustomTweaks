@@ -22,7 +22,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -45,9 +44,9 @@ import net.minecraftforge.client.event.MovementInputUpdateEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
@@ -69,9 +68,10 @@ import static net.dries007.tfc.common.TFCEffects.register;
 
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
-    static final String MODID = "mycustomtweaks";
+    public static final String MODID = "mycustomtweaks";
     public static final RegistryObject<MobEffect> INSOMNIA = register("insomnia", () -> new TFCEffects.TFCMobEffect(MobEffectCategory.BENEFICIAL, 0));
     private long time;
+    private static final KeyMapping placementKey = placementKey();
 
     public MyCustomTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -82,6 +82,15 @@ public class MyCustomTweaks {
 
     private void onInterModComms(InterModEnqueueEvent event) {
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BACK.getMessageBuilder().build());
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private static KeyMapping placementKey() {
+        return new KeyMapping(
+                String.valueOf("enable Additional Placements"),
+                InputConstants.Type.KEYSYM,
+                InputConstants.UNKNOWN.getValue(),
+                "key.categories.misc");
     }
 
     @SubscribeEvent
@@ -260,6 +269,7 @@ public class MyCustomTweaks {
     @OnlyIn(Dist.CLIENT)
     private void keyRegistry(final RegisterKeyMappingsEvent event) {
         event.register(autorunKey);
+        event.register(placementKey);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -307,11 +317,21 @@ public class MyCustomTweaks {
         }
     }
 
+    private boolean shouldAP = false;
+    public static String APtag = "additional_placement";
+
     @OnlyIn(Dist.CLIENT)
     private void acceptInput() {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         if (player == null) return;
+
+        //additional placements
+        if (placementKey.isDown()) {
+            shouldAP = !shouldAP;
+            addPlayerTag(player, shouldAP);
+        }
+
         OptionInstance<Boolean> opt = mc.options.autoJump();
         if (mc.options.keyUp.isDown()) {
             if (autorunning)
@@ -334,6 +354,16 @@ public class MyCustomTweaks {
                     } else opt.set(hadAutoJump);
                 }
             } else shouldAccept = true;
+        }
+    }
+
+    private static void addPlayerTag(Player player, boolean tag) {
+        if (tag) {
+            player.addTag(APtag);
+            player.displayClientMessage(Component.nullToEmpty("Enabled Additional Placements"), true);
+        } else {
+            player.removeTag(APtag);
+            player.displayClientMessage(Component.nullToEmpty("Disabled Additional Placements"), true);
         }
     }
 
