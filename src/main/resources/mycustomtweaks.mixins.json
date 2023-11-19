@@ -4,7 +4,8 @@
   "package": "com.leobeliik.mycustomtweaks.mixins",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "stepMixin"
+    "stepMixin",
+    "SpringFeatureMixin"
   ],
   "injectors": {
     "defaultRequire": 1
