@@ -4,6 +4,10 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Window;
 import net.dries007.tfc.common.TFCEffects;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
+import net.dries007.tfc.common.capabilities.Capabilities;
+import net.dries007.tfc.common.fluids.Alcohol;
+import net.dries007.tfc.common.fluids.TFCFluids;
+import net.dries007.tfc.common.items.FluidContainerItem;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
@@ -21,6 +25,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
@@ -46,7 +51,7 @@ import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
@@ -55,6 +60,8 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -64,6 +71,7 @@ import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
+import static net.dries007.tfc.common.TFCEffects.EFFECTS;
 import static net.dries007.tfc.common.TFCEffects.register;
 
 @Mod(MyCustomTweaks.MODID)
@@ -99,6 +107,20 @@ public class MyCustomTweaks {
             event.setCanceled(true);
             float f = creeper.isPowered() ? 2.0F : 1.0F;
             event.getLevel().explode(null, creeper.getX(), creeper.getY(), creeper.getZ(), 3f * f, false, Level.ExplosionInteraction.TNT);
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public void onPlayerIDrink(LivingEntityUseItemEvent.Finish event) {
+        ItemStack item = event.getItem();
+        if (event.getEntity() instanceof Player player && item.getItem() instanceof FluidContainerItem drink) {
+            IFluidHandler handler = item.getCapability(Capabilities.FLUID_ITEM).resolve().orElse(null);
+            if (handler != null) {
+                FluidStack drained = handler.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
+                if (TFCFluids.ALCOHOLS.keySet().stream().anyMatch(alcohol -> drained.getFluid().getFluidType().toString().contains(alcohol.getId()))) {
+                    player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 6000, 1));
+                }
+            }
         }
     }
 
