@@ -142,7 +142,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.1.3'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.2.6'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     implementation fg.deobf("curse.maven:tfc-302973:${tfc_version}")
@@ -150,13 +150,13 @@ dependencies {
     implementation fg.deobf("curse.maven:ap-674852:${ap_version}")
     //implementation fg.deobf("curse.maven:tfl-453394:${tfl_version}")
     //implementation fg.deobf("curse.maven:tfh-405263:${tfh_version}")
-    //implementation fg.deobf("curse.maven:sups-412082:${sups_version}")
-    //implementation fg.deobf("curse.maven:selene-499980:${selene_version}")
+    implementation fg.deobf("curse.maven:sups-412082:4881885")
+    implementation fg.deobf("curse.maven:moonlig-499980:4876459")
     //implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
     //implementation fg.deobf("vazkii.quark:Quark:${quark_version}")
     //implementation fg.deobf("vazkii.autoreglib:AutoRegLib:${arl_version}")
     //implementation fg.deobf("mezz.jei:jei-1.18.2-forge:${jei_version}")
-    //implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}")
+    implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}")
     //implementation fg.deobf("curse.maven:decor_blocks-362528:3965454")
     //implementation fg.deobf("curse.maven:tic_integrations-602680:4095272")
     //implementation fg.deobf("slimeknights.tconstruct:TConstruct:${tic_version}")

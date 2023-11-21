@@ -6,7 +6,9 @@
   "client": [
   ],
   "mixins": [
-    "ap_toggle"
+    "ap_toggle",
+    "itemInCrateMixin",
+    "itemInSackMixin"
   ],
   "injectors": {
     "defaultRequire": 1
