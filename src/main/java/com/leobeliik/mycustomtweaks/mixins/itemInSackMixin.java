@@ -14,8 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SackBlockTile.class)
 public class itemInSackMixin {
 
-    @Inject(at = @At("RETURN"), method = "Lnet/mehvahdjukaar/supplementaries/common/block/tiles/SackBlockTile;canPlaceItem(ILnet/minecraft/world/item/ItemStack;)Z", remap = false)
-
+    @Inject(at = @At("RETURN"), method = "Lnet/mehvahdjukaar/supplementaries/common/block/tiles/SackBlockTile;canPlaceItem(ILnet/minecraft/world/item/ItemStack;)Z")
     public boolean canPlaceItem(int index, ItemStack stack, CallbackInfoReturnable cir) {
         return cir.getReturnValueZ() && ItemSizeManager.get(stack).getSize(stack).isSmallerThan(Size.VERY_LARGE);
     }

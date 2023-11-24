@@ -126,20 +126,6 @@ public class MyCustomTweaks {
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)
-    public void onPlayerIDrink(LivingEntityUseItemEvent.Finish event) {
-        ItemStack item = event.getItem();
-        if (event.getEntity() instanceof Player player && item.getItem() instanceof FluidContainerItem drink) {
-            IFluidHandler handler = item.getCapability(Capabilities.FLUID_ITEM).resolve().orElse(null);
-            if (handler != null) {
-                FluidStack drained = handler.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
-                if (TFCFluids.ALCOHOLS.keySet().stream().anyMatch(alcohol -> drained.getFluid().getFluidType().toString().contains(alcohol.getId()))) {
-                    player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 6000, 1));
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOW)
     public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
         if (!event.getLevel().isClientSide || player.isDiscrete() || event.isCanceled() || event.getResult() == Event.Result.DENY || event.getUseBlock() == Event.Result.DENY)
