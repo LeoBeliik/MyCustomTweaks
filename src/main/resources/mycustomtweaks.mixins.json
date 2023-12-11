@@ -1,18 +1,11 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "com.leobeliik.mycustomtweaks.mixins",
-  "compatibilityLevel": "JAVA_16",
-  "client": [
-  ],
-  "mixins": [
-    "ap_toggle",
-    "itemInCrateMixin",
-    "itemInSackMixin",
-    "waterAndWheel"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  },
-  "refmap": "mycustomtweaks.refmap.json"
+	"required": true,
+	"package": "com.leobeliik.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+      "betterInk"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }
