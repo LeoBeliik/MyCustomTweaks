@@ -139,6 +139,10 @@ repositories {
     maven { url = "https://maven.theillusivec4.top/" } //Curios
     maven { url = "https://cursemaven.com" } //CurseForge
     maven { url = "https://maven.tterrag.com/" } //create
+
+    flatDir {
+        dirs 'mods'
+    }
 }
 
 dependencies {
@@ -150,10 +154,10 @@ dependencies {
     implementation fg.deobf("curse.maven:ap-674852:${ap_version}")
     //implementation fg.deobf("curse.maven:tfl-453394:${tfl_version}")
     //implementation fg.deobf("curse.maven:tfh-405263:${tfh_version}")
-    implementation fg.deobf("curse.maven:sups-412082:4881885")
-    implementation fg.deobf("curse.maven:moonlig-499980:4876459")
+    implementation fg.deobf("curse.maven:sups-412082:${sups_version}")
+    implementation fg.deobf("curse.maven:moonlib-499980:${moonlib_version}")
     //implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
-    //implementation fg.deobf("vazkii.quark:Quark:${quark_version}")
+    implementation fg.deobf("blank:Quark-4.0-beta:424")
     //implementation fg.deobf("vazkii.autoreglib:AutoRegLib:${arl_version}")
     //implementation fg.deobf("mezz.jei:jei-1.18.2-forge:${jei_version}")
     implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}")
