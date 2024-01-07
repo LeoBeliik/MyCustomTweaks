@@ -157,7 +157,7 @@ dependencies {
     implementation fg.deobf("curse.maven:sups-412082:${sups_version}")
     implementation fg.deobf("curse.maven:moonlib-499980:${moonlib_version}")
     //implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
-    implementation fg.deobf("blank:Quark-4.0-beta:424")
+    implementation fg.deobf("blank:Quark-4.0-beta:425")
     //implementation fg.deobf("vazkii.autoreglib:AutoRegLib:${arl_version}")
     //implementation fg.deobf("mezz.jei:jei-1.18.2-forge:${jei_version}")
     implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}")
