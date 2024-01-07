@@ -46,19 +46,6 @@ public class quarkPanelMixin {
     @Overwrite(remap = false)
     public static boolean shouldWallConnect(BlockState state, Direction dir, boolean prev) {
         Block block = state.getBlock();
-        if (block instanceof VerticalSlabBlock || block instanceof VerticalStairBlock || state.is(verticalSlabTag)) {
-            Optional<Property<?>> opt = state.getProperties().stream().filter((p) -> p.getName().equals("type") || p.getName().equals("facing")).findFirst();
-            if (opt.isPresent()) {
-                Property<?> prop = opt.get();
-                if (prop instanceof EnumProperty) {
-                    EnumProperty<?> ep = (EnumProperty) prop;
-                    Enum<?> val = (Enum) state.getValue(prop);
-                    String name = val.name().toLowerCase();
-                    Direction vsDir = Direction.byName(name);
-                    return vsDir != null && vsDir.getAxis() != dir.getAxis();
-                }
-            }
-        }
-        return false;
+        return block instanceof VerticalSlabBlock || block instanceof VerticalStairBlock || state.is(verticalSlabTag);
     }
 }
