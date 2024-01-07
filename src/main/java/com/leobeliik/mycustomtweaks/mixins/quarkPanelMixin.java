@@ -47,6 +47,8 @@ public class quarkPanelMixin {
     @Overwrite(remap = false)
     public static boolean shouldWallConnect(BlockState state, Direction dir, boolean prev) {
         Block block = state.getBlock();
-        return block instanceof VerticalSlabBlock || block instanceof VerticalStairBlock || state.is(verticalSlabTag);
+        if (block instanceof VerticalSlabBlock || block instanceof VerticalStairBlock || state.is(verticalSlabTag))
+            return true;
+        else return prev;
     }
 }
