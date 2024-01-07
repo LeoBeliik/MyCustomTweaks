@@ -26,10 +26,9 @@ public class quarkPanelMixin {
 
     @Overwrite(remap = false)
     public static BlockState messWithPaneState(LevelAccessor level, BlockPos ourPos, BlockState state) {
-
         for (Direction dir : PipeBlock.PROPERTY_BY_DIRECTION.keySet()) {
             if (dir.getAxis().isHorizontal()) {
-                BooleanProperty prop = (BooleanProperty) PipeBlock.PROPERTY_BY_DIRECTION.get(dir);
+                BooleanProperty prop = PipeBlock.PROPERTY_BY_DIRECTION.get(dir);
                 boolean val = state.getValue(prop);
                 if (!val) {
                     BlockState adjState = level.getBlockState(ourPos.relative(dir));
@@ -40,7 +39,6 @@ public class quarkPanelMixin {
                 }
             }
         }
-
         return state;
     }
 
