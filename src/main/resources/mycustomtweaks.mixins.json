@@ -9,8 +9,7 @@
     "ap_toggle",
     "itemInCrateMixin",
     "itemInSackMixin",
-    "waterAndWheel",
-    "quarkPanelMixin"
+    "waterAndWheel"
   ],
   "injectors": {
     "defaultRequire": 1
