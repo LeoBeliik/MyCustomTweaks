@@ -8,18 +8,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
-import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.violetmoon.quark.content.building.module.VerticalSlabsModule;
 
-import java.util.Optional;
-
 import static org.violetmoon.quark.content.building.module.VerticalSlabsModule.verticalSlabTag;
+
 
 @Mixin(VerticalSlabsModule.class)
 public class quarkPanelMixin {

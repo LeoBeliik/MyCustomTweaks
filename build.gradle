@@ -139,10 +139,6 @@ repositories {
     maven { url = "https://maven.theillusivec4.top/" } //Curios
     maven { url = "https://cursemaven.com" } //CurseForge
     maven { url = "https://maven.tterrag.com/" } //create
-
-    flatDir {
-        dirs 'mods'
-    }
 }
 
 dependencies {
@@ -150,14 +146,14 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     implementation fg.deobf("curse.maven:tfc-302973:${tfc_version}")
-    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
     implementation fg.deobf("curse.maven:ap-674852:${ap_version}")
     //implementation fg.deobf("curse.maven:tfl-453394:${tfl_version}")
     //implementation fg.deobf("curse.maven:tfh-405263:${tfh_version}")
-    implementation fg.deobf("curse.maven:sups-412082:${sups_version}")
     implementation fg.deobf("curse.maven:moonlib-499980:${moonlib_version}")
+    implementation fg.deobf("curse.maven:sups-412082:${sups_version}")
     //implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
-    implementation fg.deobf("blank:Quark-4.0-beta:425")
+    implementation fg.deobf("org.violetmoon.quark:Quark:${quark_version}")
+    implementation fg.deobf("org.violetmoon.zeta:Zeta:${zeta_version}")
     //implementation fg.deobf("vazkii.autoreglib:AutoRegLib:${arl_version}")
     //implementation fg.deobf("mezz.jei:jei-1.18.2-forge:${jei_version}")
     implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}")
@@ -170,6 +166,7 @@ dependencies {
     //runtimeOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
     //runtimeOnly fg.deobf("curse.maven:tetra-289712:4448541")
     //runtimeOnly fg.deobf("curse.maven:mutil-351914:3941314")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchi_version}")
 }
 
