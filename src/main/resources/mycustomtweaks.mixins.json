@@ -6,7 +6,6 @@
   "client": [
   ],
   "mixins": [
-    "ap_toggle",
     "itemInIECrateMixin",
     "itemInSackMixin",
     "waterAndWheel",

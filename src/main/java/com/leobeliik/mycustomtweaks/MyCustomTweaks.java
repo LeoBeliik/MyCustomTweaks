@@ -5,7 +5,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.dries007.tfc.common.TFCEffects;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -18,8 +17,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
@@ -27,11 +24,9 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
-
 import static net.dries007.tfc.common.TFCEffects.register;
 
 @Mod(MyCustomTweaks.MODID)
@@ -39,21 +34,10 @@ public class MyCustomTweaks {
     public static final String MODID = "mycustomtweaks";
     public static final RegistryObject<MobEffect> INSOMNIA = register("insomnia", () -> new TFCEffects.TFCMobEffect(MobEffectCategory.BENEFICIAL, 0));
     private long time;
-    private static final KeyMapping placementKey = placementKey();
 
     public MyCustomTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> bus.addListener(this::keyRegistry));
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private static KeyMapping placementKey() {
-        return new KeyMapping(
-                String.valueOf("enable Additional Placements"),
-                InputConstants.Type.KEYSYM,
-                InputConstants.UNKNOWN.getValue(),
-                "key.categories.misc");
     }
 
     @SubscribeEvent
@@ -102,39 +86,6 @@ public class MyCustomTweaks {
             } else {
                 time = level.getDayTime();
             }
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private void keyRegistry(final RegisterKeyMappingsEvent event) {
-        event.register(placementKey);
-    }
-
-
-    private boolean shouldAP = false;
-    public static String APtag = "additional_placement";
-
-    @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
-    public void onKeyInput(InputEvent.Key event) {
-        Minecraft mc = Minecraft.getInstance();
-        Player player = mc.player;
-        if (player == null) return;
-
-        //additional placements
-        if (placementKey.isDown()) {
-            shouldAP = !shouldAP;
-            addPlayerTag(player, shouldAP);
-        }
-    }
-
-    private static void addPlayerTag(Player player, boolean tag) {
-        if (tag) {
-            player.addTag(APtag);
-            player.displayClientMessage(Component.nullToEmpty("Enabled Additional Placements"), true);
-        } else {
-            player.removeTag(APtag);
-            player.displayClientMessage(Component.nullToEmpty("Disabled Additional Placements"), true);
         }
     }
 }
