@@ -3,6 +3,7 @@ package com.leobeliik.mycustomtweaks;
 import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
 import net.dries007.tfc.common.TFCEffects;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
+import net.dries007.tfc.common.blocks.RiverWaterBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -13,6 +14,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
@@ -86,6 +89,14 @@ public class MyCustomTweaks {
             } else {
                 time = level.getDayTime();
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onBlockPlaced(BlockEvent.EntityPlaceEvent event) {
+        if (event.getBlockSnapshot().getReplacedBlock().getBlock() instanceof RiverWaterBlock) {
+            BlockState state = event.getPlacedBlock().trySetValue(BlockStateProperties.WATERLOGGED, true);
+            event.getLevel().setBlock(event.getPos(), state, 0, 1);
         }
     }
 }
