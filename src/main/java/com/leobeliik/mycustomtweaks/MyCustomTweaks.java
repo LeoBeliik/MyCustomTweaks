@@ -1,10 +1,8 @@
 package com.leobeliik.mycustomtweaks;
 
 import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
-import com.mojang.blaze3d.platform.InputConstants;
 import net.dries007.tfc.common.TFCEffects;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
-import net.minecraft.client.KeyMapping;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -15,18 +13,18 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
+
 import static net.dries007.tfc.common.TFCEffects.register;
 
 @Mod(MyCustomTweaks.MODID)
@@ -67,9 +65,11 @@ public class MyCustomTweaks {
         if (time != 0) {
             if (level instanceof ServerLevel) {
                 long currentTime = level.getDayTime();
-                ((ServerLevel) level).setDayTime(currentTime - ((currentTime - time) / 2));
-                player.addEffect(new MobEffectInstance(INSOMNIA.get(), 6000, -1, false, false, false));
-                player.displayClientMessage(Component.nullToEmpty("You struggle to keep sleeping"), true);
+                if (time % 24000 < 18000) {
+                    ((ServerLevel) level).setDayTime(currentTime - ((currentTime - time) / 2));
+                    player.displayClientMessage(Component.nullToEmpty("You struggle to keep sleeping"), true);
+                    player.addEffect(new MobEffectInstance(INSOMNIA.get(), 6000, -1, false, false, false));
+                }
             }
             time = 0;
         }
@@ -80,9 +80,9 @@ public class MyCustomTweaks {
         Player player = event.getEntity();
         Level level = player.level();
         if (level.getBlockEntity(event.getPos()) instanceof ThatchBedBlockEntity) {
-            if (player.hasEffect(INSOMNIA.get())) {
+            if (player.hasEffect(INSOMNIA.get()) && event.getResult().equals(Event.Result.DEFAULT)) {
                 player.displayClientMessage(Component.nullToEmpty("You can't go to sleep now"), true);
-                event.setCanceled(true);
+                event.setResult(Player.BedSleepingProblem.OTHER_PROBLEM);
             } else {
                 time = level.getDayTime();
             }
