@@ -96,7 +96,7 @@ public class MyCustomTweaks {
     public void onBlockPlaced(BlockEvent.EntityPlaceEvent event) {
         if (event.getBlockSnapshot().getReplacedBlock().getBlock() instanceof RiverWaterBlock) {
             BlockState state = event.getPlacedBlock().trySetValue(BlockStateProperties.WATERLOGGED, true);
-            event.getLevel().setBlock(event.getPos(), state, 0, 1);
+            event.getLevel().setBlock(event.getPos(), state, 0);
         }
     }
 }
