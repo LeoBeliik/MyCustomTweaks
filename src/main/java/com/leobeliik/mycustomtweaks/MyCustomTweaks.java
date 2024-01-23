@@ -4,6 +4,7 @@ import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEnti
 import net.dries007.tfc.common.TFCEffects;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
 import net.dries007.tfc.common.blocks.RiverWaterBlock;
+import net.dries007.tfc.common.blocks.TFCBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
@@ -95,8 +97,19 @@ public class MyCustomTweaks {
     @SubscribeEvent
     public void onBlockPlaced(BlockEvent.EntityPlaceEvent event) {
         if (event.getBlockSnapshot().getReplacedBlock().getBlock() instanceof RiverWaterBlock) {
-            BlockState state = event.getPlacedBlock().trySetValue(BlockStateProperties.WATERLOGGED, true);
-            event.getLevel().setBlock(event.getPos(), state, 0);
+            Waterlog(event.getPlacedBlock(), (Level) event.getLevel(), event.getPos());
         }
+    }
+
+    @SubscribeEvent
+    public void onBlockPlaced(BlockEvent.EntityMultiPlaceEvent event) {
+        if (event.getBlockSnapshot().getReplacedBlock().getBlock() instanceof RiverWaterBlock) {
+            Waterlog(event.getPlacedBlock(), (Level) event.getLevel(), event.getPos());
+        }
+    }
+
+    private void Waterlog(BlockState block, Level level, BlockPos pos) {
+        BlockState state = block.trySetValue(BlockStateProperties.WATERLOGGED, true).trySetValue(TFCBlockStateProperties.WATER, TFCBlockStateProperties.WATER.keyFor(Fluids.WATER));
+        level.setBlock(pos, state, 0);
     }
 }
