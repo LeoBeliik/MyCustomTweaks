@@ -10,8 +10,7 @@
     "itemInSackMixin",
     "waterAndWheel",
     "quarkPanelMixin",
-    "itemInQCrateMixin",
-    "pumpMixin"
+    "itemInQCrateMixin"
   ],
   "injectors": {
     "defaultRequire": 1
