@@ -10,7 +10,8 @@
     "itemInSackMixin",
     "waterAndWheel",
     "quarkPanelMixin",
-    "itemInQCrateMixin"
+    "itemInQCrateMixin",
+    "windmillMixin"
   ],
   "injectors": {
     "defaultRequire": 1
