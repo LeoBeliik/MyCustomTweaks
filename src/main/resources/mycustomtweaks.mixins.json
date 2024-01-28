@@ -11,7 +11,8 @@
     "waterAndWheel",
     "quarkPanelMixin",
     "itemInQCrateMixin",
-    "windmillMixin"
+    "windmillMixin",
+    "elytraZetaMixin"
   ],
   "injectors": {
     "defaultRequire": 1

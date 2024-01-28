@@ -120,29 +120,4 @@ public class MyCustomTweaks {
         level.setBlock(pos, state, 0);
     }
 
-    @SubscribeEvent
-    public void onUseRocket(PlayerInteractEvent.RightClickItem event) {
-        Player player = event.getEntity();
-        ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
-        if(!player.isFallFlying() && chest.getItem() instanceof GliderItem) {
-            Level world = player.level();
-            ItemStack itemstack = event.getItemStack();
-
-            if(itemstack.getItem() instanceof FireworkRocketItem) {
-                if(!world.isClientSide) {
-                    world.addFreshEntity(new FireworkRocketEntity(world, itemstack, player));
-                    if(!player.getAbilities().instabuild)
-                        itemstack.shrink(1);
-                }
-
-                player.startFallFlying();
-                player.jumpFromGround();
-
-                event.setCanceled(true);
-                event.setCancellationResult(InteractionResult.sidedSuccess(world.isClientSide));
-            }
-
-        }
-
-    }
 }
