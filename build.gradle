@@ -138,24 +138,25 @@ repositories {
     maven { url = "https://maven.blamejared.com" } //violent moon mods
     maven { url = "https://maven.theillusivec4.top/" } //Curios
     maven { url = "https://cursemaven.com" } //CurseForge
+    maven { url = "https://api.modrinth.com/maven" } //Modrinth
     maven { url = "https://maven.tterrag.com/" } //create
+
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.6'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf("curse.maven:tfc-302973:${tfc_version}")
-    implementation fg.deobf("curse.maven:ap-674852:${ap_version}")
+    implementation fg.deobf("maven.modrinth:terrafirmacraft:${tfc_version}")
+    implementation fg.deobf("curse.maven:ap-674852:${ap_version}") //not on modrinth
     //implementation fg.deobf("curse.maven:tfl-453394:${tfl_version}")
     //implementation fg.deobf("curse.maven:tfh-405263:${tfh_version}")
-    implementation fg.deobf("curse.maven:moonlib-499980:${moonlib_version}")
-    implementation fg.deobf("curse.maven:sups-412082:${sups_version}")
+    implementation fg.deobf("maven.modrinth:moonlight:${moonlib_version}")
+    implementation fg.deobf("maven.modrinth:supplementaries:${sups_version}")
     //implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
     implementation fg.deobf("org.violetmoon.quark:Quark:${quark_version}")
     implementation fg.deobf("org.violetmoon.zeta:Zeta:${zeta_version}")
     //implementation fg.deobf("vazkii.autoreglib:AutoRegLib:${arl_version}")
-    //implementation fg.deobf("mezz.jei:jei-1.18.2-forge:${jei_version}")
     implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}")
     //implementation fg.deobf("curse.maven:decor_blocks-362528:3965454")
     //implementation fg.deobf("curse.maven:tic_integrations-602680:4095272")
@@ -166,9 +167,10 @@ dependencies {
     //runtimeOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
     //runtimeOnly fg.deobf("curse.maven:tetra-289712:4448541")
     //runtimeOnly fg.deobf("curse.maven:mutil-351914:3941314")
-    runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_version}")
+    runtimeOnly fg.deobf("maven.modrinth:jade:${jade_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchi_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:${jei_version}")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
