@@ -1,6 +1,7 @@
 package com.leobeliik.mycustomtweaks;
 
 import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
+import blusunrize.immersiveengineering.common.items.GliderItem;
 import net.dries007.tfc.common.TFCEffects;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
 import net.dries007.tfc.common.blocks.RiverWaterBlock;
@@ -9,16 +10,22 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FireworkRocketEntity;
+import net.minecraft.world.item.FireworkRocketItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.level.BlockEvent;
@@ -111,5 +118,31 @@ public class MyCustomTweaks {
     private void Waterlog(BlockState block, Level level, BlockPos pos) {
         BlockState state = block.trySetValue(BlockStateProperties.WATERLOGGED, true).trySetValue(TFCBlockStateProperties.WATER, TFCBlockStateProperties.WATER.keyFor(Fluids.WATER));
         level.setBlock(pos, state, 0);
+    }
+
+    @SubscribeEvent
+    public void onUseRocket(PlayerInteractEvent.RightClickItem event) {
+        Player player = event.getEntity();
+        ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
+        if(!player.isFallFlying() && chest.getItem() instanceof GliderItem) {
+            Level world = player.level();
+            ItemStack itemstack = event.getItemStack();
+
+            if(itemstack.getItem() instanceof FireworkRocketItem) {
+                if(!world.isClientSide) {
+                    world.addFreshEntity(new FireworkRocketEntity(world, itemstack, player));
+                    if(!player.getAbilities().instabuild)
+                        itemstack.shrink(1);
+                }
+
+                player.startFallFlying();
+                player.jumpFromGround();
+
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.sidedSuccess(world.isClientSide));
+            }
+
+        }
+
     }
 }
