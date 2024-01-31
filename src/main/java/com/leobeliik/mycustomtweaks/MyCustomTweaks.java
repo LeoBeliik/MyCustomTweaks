@@ -1,36 +1,37 @@
 package com.leobeliik.mycustomtweaks;
 
 import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
-import blusunrize.immersiveengineering.common.items.GliderItem;
+import com.leobeliik.mycustomtweaks.Network.JustStackIt;
+import com.leobeliik.mycustomtweaks.Network.Network;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.dries007.tfc.client.TFCKeyBindings;
 import net.dries007.tfc.common.TFCEffects;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
 import net.dries007.tfc.common.blocks.RiverWaterBlock;
 import net.dries007.tfc.common.blocks.TFCBlockStateProperties;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.FireworkRocketEntity;
-import net.minecraft.world.item.FireworkRocketItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -48,6 +49,7 @@ public class MyCustomTweaks {
     public MyCustomTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        Network.register();
     }
 
     @SubscribeEvent
@@ -112,6 +114,16 @@ public class MyCustomTweaks {
     public void onBlockPlaced(BlockEvent.EntityMultiPlaceEvent event) {
         if (event.getBlockSnapshot().getReplacedBlock().getBlock() instanceof RiverWaterBlock) {
             Waterlog(event.getPlacedBlock(), (Level) event.getLevel(), event.getPos());
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public void onScreenKey(ScreenEvent.KeyPressed event) {
+        if (TFCKeyBindings.STACK_FOOD.isActiveAndMatches(InputConstants.getKey(event.getKeyCode(), event.getScanCode())) && event.getScreen() instanceof AbstractContainerScreen inv) {
+            Slot slot = inv.getSlotUnderMouse();
+            if (slot != null) {
+                Network.sendToServer(new JustStackIt(slot.index));
+            }
         }
     }
 
