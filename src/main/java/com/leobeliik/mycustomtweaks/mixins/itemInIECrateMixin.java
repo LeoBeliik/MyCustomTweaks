@@ -1,8 +1,10 @@
 package com.leobeliik.mycustomtweaks.mixins;
 
 import blusunrize.immersiveengineering.api.IEApi;
+import blusunrize.immersiveengineering.client.gui.ToolboxScreen;
 import net.dries007.tfc.common.capabilities.size.ItemSizeManager;
 import net.dries007.tfc.common.capabilities.size.Size;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,6 +16,6 @@ public class itemInIECrateMixin {
 
     @Inject(at = @At("RETURN"), method = "Lblusunrize/immersiveengineering/api/IEApi;isAllowedInCrate(Lnet/minecraft/world/item/ItemStack;)Z", remap = false)
     private static boolean isAllowedInCrate(ItemStack stack, CallbackInfoReturnable cir) {
-        return cir.getReturnValueZ() && ItemSizeManager.get(stack).getSize(stack).isSmallerThan(Size.VERY_LARGE);
+        return Minecraft.getInstance().screen instanceof ToolboxScreen ? cir.getReturnValueZ() : cir.getReturnValueZ() && ItemSizeManager.get(stack).getSize(stack).isSmallerThan(Size.VERY_LARGE);
     }
 }
