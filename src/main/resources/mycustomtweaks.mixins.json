@@ -13,7 +13,8 @@
     "itemInQCrateMixin",
     "windmillMixin",
     "elytraZetaMixin",
-    "waterwheelBEMixin"
+    "waterwheelBEMixin",
+    "invTransMixin"
   ],
   "injectors": {
     "defaultRequire": 1
