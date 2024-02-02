@@ -14,7 +14,8 @@
     "windmillMixin",
     "elytraZetaMixin",
     "waterwheelBEMixin",
-    "invTransMixin"
+    "invTransMixin",
+    "invButtonMixin"
   ],
   "injectors": {
     "defaultRequire": 1
