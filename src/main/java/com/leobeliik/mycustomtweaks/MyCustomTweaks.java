@@ -1,14 +1,14 @@
 package com.leobeliik.mycustomtweaks;
 
 import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
-import com.leobeliik.mycustomtweaks.Network.JustStackIt;
-import com.leobeliik.mycustomtweaks.Network.Network;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.dries007.tfc.client.TFCKeyBindings;
 import net.dries007.tfc.common.TFCEffects;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
 import net.dries007.tfc.common.blocks.RiverWaterBlock;
 import net.dries007.tfc.common.blocks.TFCBlockStateProperties;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -37,6 +37,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
+import org.violetmoon.quark.content.management.client.screen.widgets.MiniInventoryButton;
+
+import java.util.List;
 
 import static net.dries007.tfc.common.TFCEffects.register;
 
@@ -49,7 +52,7 @@ public class MyCustomTweaks {
     public MyCustomTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        Network.register();
+        //Network.register();
     }
 
     @SubscribeEvent
@@ -122,7 +125,28 @@ public class MyCustomTweaks {
         if (TFCKeyBindings.STACK_FOOD.isActiveAndMatches(InputConstants.getKey(event.getKeyCode(), event.getScanCode())) && event.getScreen() instanceof AbstractContainerScreen inv) {
             Slot slot = inv.getSlotUnderMouse();
             if (slot != null) {
-                Network.sendToServer(new JustStackIt(slot.index));
+                //Network.sendToServer(new JustStackIt(slot.index));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onButtonCreation(ScreenEvent.Init event) {
+        List<String> screens = List.of(
+                "net.minecraft.client.gui.screens.inventory.HorseInventoryScreen",
+                "net.dries007.tfc.client.screen.LargeVesselScreen",
+                "net.mehvahdjukaar.supplementaries.client.screens.SackScreen");
+        Screen screen = event.getScreen();
+        int i = 0;
+        if (screens.contains(screen.getClass().getName())) {
+            for (GuiEventListener renderable : screen.children()) {
+                if (renderable instanceof MiniInventoryButton btn) {
+                    if (i < 2) {
+                        btn.setX(284 - (i * 12));
+                        btn.setY(42);
+                        i++;
+                    }
+                }
             }
         }
     }
