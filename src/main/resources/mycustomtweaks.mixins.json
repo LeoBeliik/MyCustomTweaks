@@ -6,15 +6,6 @@
   "client": [
   ],
   "mixins": [
-    "itemInIECrateMixin",
-    "itemInSackMixin",
-    "waterAndWheel",
-    "quarkPanelMixin",
-    "itemInQCrateMixin",
-    "windmillMixin",
-    "elytraZetaMixin",
-    "waterwheelBEMixin",
-    "invTransMixin",
     "invButtonMixin"
   ],
   "injectors": {

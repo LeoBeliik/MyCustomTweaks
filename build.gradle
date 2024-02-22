@@ -147,26 +147,11 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.6'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf("maven.modrinth:terrafirmacraft:${tfc_version}")
-    implementation fg.deobf("curse.maven:ap-674852:${ap_version}") //not on modrinth
-    //implementation fg.deobf("curse.maven:tfl-453394:${tfl_version}")
-    //implementation fg.deobf("curse.maven:tfh-405263:${tfh_version}")
     implementation fg.deobf("maven.modrinth:moonlight:${moonlib_version}")
     implementation fg.deobf("maven.modrinth:supplementaries:${sups_version}")
-    //implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
+    implementation fg.deobf("maven.modrinth:pneumaticcraft-repressurized:${pneuma_version}")
     implementation fg.deobf("org.violetmoon.quark:Quark:${quark_version}")
     implementation fg.deobf("org.violetmoon.zeta:Zeta:${zeta_version}")
-    //implementation fg.deobf("vazkii.autoreglib:AutoRegLib:${arl_version}")
-    implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}")
-    //implementation fg.deobf("curse.maven:decor_blocks-362528:3965454")
-    //implementation fg.deobf("curse.maven:tic_integrations-602680:4095272")
-    //implementation fg.deobf("slimeknights.tconstruct:TConstruct:${tic_version}")
-    //implementation fg.deobf("slimeknights.mantle:Mantle:${mantle_version}")
-    //implementation fg.deobf("com.simibubi.create:create-${create_version}:slim")
-    //runtimeOnly fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_version}")
-    //runtimeOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
-    //runtimeOnly fg.deobf("curse.maven:tetra-289712:4448541")
-    //runtimeOnly fg.deobf("curse.maven:mutil-351914:3941314")
     runtimeOnly fg.deobf("maven.modrinth:jade:${jade_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchi_version}")
