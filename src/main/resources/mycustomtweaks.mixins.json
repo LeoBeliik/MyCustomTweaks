@@ -6,7 +6,8 @@
   "client": [
   ],
   "mixins": [
-    "invButtonMixin"
+    "quarkCandleFixMixin",
+    "noTeleportyMixin"
   ],
   "injectors": {
     "defaultRequire": 1

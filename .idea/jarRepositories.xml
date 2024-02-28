@@ -61,5 +61,10 @@
       <option name="name" value="maven4" />
       <option name="url" value="https://api.modrinth.com/maven" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven6" />
+      <option name="name" value="maven6" />
+      <option name="url" value="https://ldtteam.jfrog.io/ldtteam/modding/" />
+    </remote-repository>
   </component>
 </project>

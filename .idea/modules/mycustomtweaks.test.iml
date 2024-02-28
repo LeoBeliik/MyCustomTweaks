@@ -19,21 +19,21 @@
     <option name="platformVersion" value="47.2.6" />
     <option name="srgType" value="TSRG" />
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
+  <component name="NewModuleRootManager">
     <output-test url="file://$MODULE_DIR$/../../out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/test/resources" type="java-test-resource" />
     </content>
-    <orderEntry type="jdk" jdkName="17" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="mycustomtweaks.main" />
     <orderEntry type="library" name="Gradle: maven.modrinth:moonlight:forge_1.20-2.9.3_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" name="Gradle: maven.modrinth:supplementaries:1.20-2.7.30_mapped_parchment_2023.06.26-1.20.1" level="project" />
-    <orderEntry type="library" name="Gradle: maven.modrinth:pneumaticcraft-repressurized:6.0.14_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" name="Gradle: org.violetmoon.quark:Quark:4.0-+_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" name="Gradle: org.violetmoon.zeta:Zeta:1.0-+_mapped_parchment_2023.06.26-1.20.1" level="project" />
+    <orderEntry type="library" name="Gradle: maven.modrinth:journeymap:1.20.1-5.9.18-forge_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" name="Gradle: net.minecraftforge:forge:1.20.1-47.2.6_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" name="Gradle: net.minecraft:client:extra:1.20.1" level="project" />
     <orderEntry type="library" name="Gradle: net.minecraftforge:fmlloader:1.20.1-47.2.6" level="project" />
