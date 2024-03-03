@@ -6,7 +6,6 @@
   "client": [
   ],
   "mixins": [
-    "quarkCandleFixMixin",
     "noTeleportyMixin"
   ],
   "injectors": {
