@@ -150,7 +150,7 @@
     <orderEntry type="library" name="Gradle: org.abego.treelayout:org.abego.treelayout.core:1.0.3" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish:javax.json:1.0.4" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: maven.modrinth:jade:11.7.1_mapped_parchment_2023.06.26-1.20.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: top.theillusivec4.curios:curios-forge:5.4.2+1.20.1_mapped_parchment_2023.06.26-1.20.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: top.theillusivec4.curios:curios-forge:5.7.2+1.20.1_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: vazkii.patchouli:Patchouli:1.20.1-+_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: mezz.jei:jei-1.20.1-forge:15.+_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: net.minecraft:mappings_parchment:zip:2023.06.26-1.20.1" level="project" />

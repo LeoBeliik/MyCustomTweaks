@@ -6,7 +6,8 @@
   "client": [
   ],
   "mixins": [
-    "noTeleportyMixin"
+    "noTeleportyMixin",
+    "dropMeSackMixin"
   ],
   "injectors": {
     "defaultRequire": 1
