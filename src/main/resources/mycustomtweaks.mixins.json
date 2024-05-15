@@ -7,7 +7,12 @@
   ],
   "mixins": [
     "noTeleportyMixin",
-    "dropMeSackMixin"
+    "ManaBurstEntityMixin",
+    "DamageLensMixin",
+    "GravityLensMixin",
+    "TiaraMixin",
+    "ManaRepairMixin",
+    "MagnetRingMixin"
   ],
   "injectors": {
     "defaultRequire": 1
