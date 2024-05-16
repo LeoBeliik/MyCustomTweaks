@@ -11,7 +11,7 @@ import static com.leobeliik.mycustomtweaks.MyCustomTweaks.magnetKey;
 public class MagnetRingMixin {
 
     @Redirect(method = "Lvazkii/botania/common/item/equipment/bauble/RingOfMagnetizationItem;onWornTick(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;isShiftKeyDown()Z"), remap = false)
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;isShiftKeyDown()Z"))
     private boolean activeMagnet(LivingEntity b) {
         return magnetKey.isDown();
     }

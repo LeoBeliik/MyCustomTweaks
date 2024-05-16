@@ -12,7 +12,8 @@
     "GravityLensMixin",
     "TiaraMixin",
     "ManaRepairMixin",
-    "MagnetRingMixin"
+    "MagnetRingMixin",
+    "QuarkLadderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
