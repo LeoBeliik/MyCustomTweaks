@@ -13,7 +13,8 @@
     "TiaraMixin",
     "ManaRepairMixin",
     "MagnetRingMixin",
-    "QuarkLadderMixin"
+    "QuarkLadderMixin",
+    "IEMultiblockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
