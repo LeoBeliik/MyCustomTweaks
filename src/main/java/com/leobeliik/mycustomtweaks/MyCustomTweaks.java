@@ -53,16 +53,6 @@ public class MyCustomTweaks {
     }
 
     @SubscribeEvent
-    public void OnBreakEvent(BlockEvent.BreakEvent event) {
-        Level level = event.getPlayer().level();
-        BlockPos pos = event.getPos();
-        //make IE crates drop the items
-        if (level.getBlockEntity(pos) instanceof WoodenCrateBlockEntity crate) {
-            Containers.dropContents(level, pos, crate);
-        }
-    }
-
-    @SubscribeEvent
     public void onCreeperExplode(ExplosionEvent.Start event) {
         if (event.getExplosion().getExploder() instanceof Creeper creeper) {
             event.setCanceled(true);
