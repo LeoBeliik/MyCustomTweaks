@@ -1,12 +1,9 @@
 package com.leobeliik.mycustomtweaks;
 
-import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -20,7 +17,6 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
