@@ -6,6 +6,7 @@
         <autoDetectTypes>
           <platformType>FORGE</platformType>
           <platformType>MIXIN</platformType>
+          <platformType>MCP</platformType>
         </autoDetectTypes>
         <projectReimportVersion>1</projectReimportVersion>
       </configuration>
@@ -34,8 +35,7 @@
     <orderEntry type="library" name="Gradle: vazkii.botania:Botania:1.20.1-443-FORGE_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" name="Gradle: org.violetmoon.quark:Quark:4.0-+_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" name="Gradle: org.violetmoon.zeta:Zeta:1.0-+_mapped_parchment_2023.06.26-1.20.1" level="project" />
-    <orderEntry type="library" name="Gradle: maven.modrinth:journeymap:1.20.1-5.9.18-forge_mapped_parchment_2023.06.26-1.20.1" level="project" />
-    <orderEntry type="library" name="Gradle: blusunrize.immersiveengineering:ImmersiveEngineering:1.20.1-+_mapped_parchment_2023.06.26-1.20.1" level="project" />
+    <orderEntry type="library" name="Gradle: maven.modrinth:journeymap:1.20.1-5.+_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" name="Gradle: net.minecraftforge:forge:1.20.1-47.2.6_mapped_parchment_2023.06.26-1.20.1" level="project" />
     <orderEntry type="library" name="Gradle: net.minecraft:client:extra:1.20.1" level="project" />
     <orderEntry type="library" name="Gradle: net.minecraftforge:fmlloader:1.20.1-47.2.6" level="project" />
