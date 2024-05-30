@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 @Mixin(ManaItemHandlerImpl.class)
 public class ManaRepairMixin {
-    private static String[] ban = {"manasteel", "elementium", "terra", "glass", "sword", "bow", "manaweave"};
+    private static String[] ban = {"manasteel", "elementium", "terra", "glass", "sword", "_bow", "manaweave"};
 
     @Redirect(method = "Lvazkii/botania/common/impl/mana/ManaItemHandlerImpl;requestManaExact(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;IZ)Z",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isEmpty()Z"))

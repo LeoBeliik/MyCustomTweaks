@@ -6,7 +6,6 @@
   "client": [
   ],
   "mixins": [
-    "noTeleportyMixin",
     "ManaBurstEntityMixin",
     "DamageLensMixin",
     "GravityLensMixin",
