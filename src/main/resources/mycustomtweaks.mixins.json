@@ -10,9 +10,9 @@
     "DamageLensMixin",
     "GravityLensMixin",
     "TiaraMixin",
-    "ManaRepairMixin",
     "MagnetRingMixin",
-    "RegenMixin"
+    "RegenMixin",
+    "HopperHockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -85,5 +85,4 @@ public class MyCustomTweaks {
             event.setNewSpeed(event.getOriginalSpeed() * efficiency);
         }
     }
-
 }
