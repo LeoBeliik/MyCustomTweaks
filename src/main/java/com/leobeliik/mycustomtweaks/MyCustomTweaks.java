@@ -2,6 +2,7 @@ package com.leobeliik.mycustomtweaks;
 
 import com.tiviacz.travelersbackpack.handlers.EntityItemHandler;
 import dan200.computercraft.api.ComputerCraftAPI;
+import de.dafuqs.spectrum.blocks.decoration.DecayingLightBlock;
 import de.dafuqs.spectrum.blocks.decoration.WandLightBlock;
 import de.dafuqs.spectrum.registries.SpectrumItems;
 import net.fabricmc.api.ModInitializer;
@@ -38,9 +39,9 @@ public class MyCustomTweaks implements ModInitializer {
 
         @Override
         public void afterBlockBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState, @Nullable BlockEntity blockEntity) {
-            if (blockState.getBlock() instanceof WandLightBlock lightBlock) {
+            if (blockState.getBlock() instanceof WandLightBlock lightBlock && !(lightBlock instanceof DecayingLightBlock)) {
                 world.spawnEntity(new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(),
-                        SpectrumItems.SHIMMERSTONE_GEM.getDefaultStack(), 0, 1, 0));
+                        SpectrumItems.SHIMMERSTONE_GEM.getDefaultStack(), 0, 0.1, 0));
             }
         }
     }

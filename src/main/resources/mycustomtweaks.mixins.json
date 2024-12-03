@@ -3,7 +3,8 @@
 	"package": "com.leobeliik.mycustomtweaks.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"betterInk"
+		"betterInk",
+		"radiantPinMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
