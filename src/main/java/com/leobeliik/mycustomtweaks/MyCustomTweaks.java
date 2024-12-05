@@ -35,16 +35,9 @@ public class MyCustomTweaks implements ModInitializer {
 
     public void onInitialize() {
         ComputerCraftCompat.register();
-        PlayerBlockBreakEvents.AFTER.register((world, playerEntity, blockPos, blockState, blockEntity) -> {
-            if (blockState.getBlock() instanceof WandLightBlock lightBlock && !(lightBlock instanceof DecayingLightBlock)) {
-                world.spawnEntity(new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(),
-                        SpectrumItems.SHIMMERSTONE_GEM.getDefaultStack(), 0, 0.1, 0));
-            }
-        });
-
         ScreenEvents.AFTER_INIT.register((minecraftClient, screen, i, i1) -> {
             KeyBinding inventoryKey = minecraftClient.options.inventoryKey;
-            ScreenKeyboardEvents.afterKeyPress(screen).register((s, j, j1, j2) -> {
+            ScreenKeyboardEvents.afterKeyRelease(screen).register((s, j, j1, j2) -> {
                 if ((s instanceof BookOverviewScreen || s instanceof BookContentScreen) && inventoryKey.matchesKey(j, j1)) {
                     s.close();
                 }
