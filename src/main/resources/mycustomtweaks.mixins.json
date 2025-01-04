@@ -14,7 +14,8 @@
     "elytraZetaMixin",
     "invTransMixin",
     "invButtonMixin",
-    "dieselToolsMixin"
+    "dieselToolsMixin",
+    "noTeleportyMixin"
   ],
   "injectors": {
     "defaultRequire": 1
