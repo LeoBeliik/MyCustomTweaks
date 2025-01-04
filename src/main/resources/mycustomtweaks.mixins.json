@@ -13,7 +13,8 @@
     "waterAndWheel",
     "elytraZetaMixin",
     "invTransMixin",
-    "invButtonMixin"
+    "invButtonMixin",
+    "dieselToolsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
