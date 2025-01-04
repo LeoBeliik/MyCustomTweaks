@@ -8,6 +8,8 @@
   "mixins": [
     "itemInIECrateMixin",
     "itemInBundleMixin",
+    "itemInQCrateMixin",
+    "itemInQBackpackMixin",
     "waterAndWheel",
     "elytraZetaMixin",
     "invTransMixin",
