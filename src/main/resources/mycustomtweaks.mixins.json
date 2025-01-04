@@ -7,13 +7,9 @@
   ],
   "mixins": [
     "itemInIECrateMixin",
-    "itemInSackMixin",
+    "itemInBundleMixin",
     "waterAndWheel",
-    "quarkPanelMixin",
-    "itemInQCrateMixin",
-    "windmillMixin",
     "elytraZetaMixin",
-    "waterwheelBEMixin",
     "invTransMixin",
     "invButtonMixin"
   ],
