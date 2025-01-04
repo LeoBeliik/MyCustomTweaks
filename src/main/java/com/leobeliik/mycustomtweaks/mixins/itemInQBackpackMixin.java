@@ -13,8 +13,7 @@ import org.violetmoon.quark.addons.oddities.inventory.slot.BackpackSlot;
 @Mixin(BackpackSlot.class)
 public class itemInQBackpackMixin {
 
-    @Inject(at = @At("RETURN"), method = "Lorg/violetmoon/quark/addons/oddities/inventory/slot/BackpackSlot;mayPlace(Lnet/minecraft/world/item/ItemStack;)Z",
-            remap = false)
+    @Inject(at = @At("RETURN"), method = "Lorg/violetmoon/quark/addons/oddities/inventory/slot/BackpackSlot;mayPlace(Lnet/minecraft/world/item/ItemStack;)Z")
     public boolean mayPlace(@NotNull ItemStack stack, CallbackInfoReturnable cir) {
         return ItemSizeManager.get(stack).getSize(stack).isEqualOrSmallerThan(Size.NORMAL);
     }
