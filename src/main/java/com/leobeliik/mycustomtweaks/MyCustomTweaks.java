@@ -4,6 +4,8 @@ import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEnti
 import com.leobeliik.mycustomtweaks.Network.JustStackIt;
 import com.leobeliik.mycustomtweaks.Network.Network;
 import com.mojang.blaze3d.platform.InputConstants;
+import journeymap.client.waypoint.Waypoint;
+import journeymap.client.waypoint.WaypointStore;
 import net.dries007.tfc.client.TFCKeyBindings;
 import net.dries007.tfc.common.TFCEffects;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
@@ -12,7 +14,10 @@ import net.dries007.tfc.common.blocks.TFCBlockStateProperties;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -20,12 +25,14 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.level.BlockEvent;
@@ -38,12 +45,17 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.awt.*;
+
+import static net.dries007.tfc.TerraFirmaCraft.MOD_ID;
 import static net.dries007.tfc.common.TFCEffects.register;
 
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
     public static final String MODID = "mycustomtweaks";
     public static final RegistryObject<MobEffect> INSOMNIA = register("insomnia", () -> new TFCEffects.TFCMobEffect(MobEffectCategory.BENEFICIAL, 0));
+    public static final TagKey<Item> SMALL_ORES = ItemTags.create(new ResourceLocation(MOD_ID, "small_ore_pieces"));
+
     private long time;
 
     public MyCustomTweaks() {
@@ -127,9 +139,27 @@ public class MyCustomTweaks {
         }
     }
 
+    @SubscribeEvent
+    public void onOrePickup(PlayerInteractEvent.RightClickBlock event) {
+        boolean tooClose = false;
+        BlockPos pos = event.getHitVec().getBlockPos();
+        Item item = event.getLevel().getBlockState(pos).getBlock().asItem();
+        String name = item.getDescription().getString();
+        if (item.getDefaultInstance().is(SMALL_ORES)) {
+            for (Waypoint waypoint : WaypointStore.INSTANCE.getAll()) {
+                if (waypoint.getName().equals(name) && waypoint.getBlockPos().closerToCenterThan(pos.getCenter(), 32)) {
+                    tooClose = true;
+                    break;
+                }
+            }
+            if (!tooClose) {
+                WaypointStore.INSTANCE.add(new Waypoint(name, pos, Color.GRAY, Waypoint.Type.Normal, "minecraft:overworld", false));
+            }
+        }
+    }
+
     private void Waterlog(BlockState block, Level level, BlockPos pos) {
         BlockState state = block.trySetValue(BlockStateProperties.WATERLOGGED, true).trySetValue(TFCBlockStateProperties.WATER, TFCBlockStateProperties.WATER.keyFor(Fluids.WATER));
         level.setBlock(pos, state, 0);
     }
-
 }
