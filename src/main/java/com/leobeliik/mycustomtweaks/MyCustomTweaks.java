@@ -1,5 +1,7 @@
 package com.leobeliik.mycustomtweaks;
 
+import com.mna.api.events.WanderingWizardSelectingTradesEvent;
+import com.mna.items.ritual.ThaumaturgicLink;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -8,11 +10,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -32,9 +36,12 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.violetmoon.quark.content.tools.item.PathfindersQuillItem;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.rod.SkiesRodItem;
+
+import java.util.Arrays;
 
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
@@ -122,5 +129,10 @@ public class MyCustomTweaks {
                 event.setCancellationResult(level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME);
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onWizard(WanderingWizardSelectingTradesEvent event) {
+        event.getOffers().removeIf(offer -> offer.assemble().getItem() instanceof ThaumaturgicLink);
     }
 }

@@ -11,7 +11,8 @@
     "MagnetRingMixin",
     "RegenMixin",
     "ManaRepairMixin",
-    "RuneForgeMixin"
+    "RuneForgeMixin",
+    "SearchableGuiMixin"
   ],
   "injectors": {
     "defaultRequire": 1
