@@ -140,6 +140,7 @@ repositories {
     maven { url = "https://cursemaven.com" } //CurseForge
     maven { url = "https://api.modrinth.com/maven" } //Modrinth
     maven { url = "https://maven.tterrag.com/" } //create
+    maven { url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/" } //gecko
 
 }
 
@@ -149,12 +150,13 @@ dependencies {
     implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
     implementation fg.deobf("org.violetmoon.quark:Quark:${quark_version}")
     implementation fg.deobf("org.violetmoon.zeta:Zeta:${zeta_version}")
-    //implementation fg.deobf("maven.modrinth:journeymap:${journey_version}")
-    //implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}")
+    implementation fg.deobf("maven.modrinth:mana-and-artifice:${mna_version}")
     runtimeOnly fg.deobf("maven.modrinth:jade:${jade_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchi_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:${jei_version}")
+    runtimeOnly fg.deobf("software.bernie.geckolib:geckolib-forge-1.20.1:${geckolib_version}")
+    runtimeOnly fg.deobf("com.eliotlash.mclib:mclib:20")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

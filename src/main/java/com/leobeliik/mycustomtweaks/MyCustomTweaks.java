@@ -121,7 +121,6 @@ public class MyCustomTweaks {
                 event.setCanceled(true);
                 event.setCancellationResult(level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME);
             }
-
         }
     }
 }

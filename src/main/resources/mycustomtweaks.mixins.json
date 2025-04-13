@@ -6,13 +6,12 @@
   "client": [
   ],
   "mixins": [
-    "ManaBurstEntityMixin",
     "DamageLensMixin",
     "GravityLensMixin",
-    "TiaraMixin",
     "MagnetRingMixin",
     "RegenMixin",
-    "HopperHockMixin"
+    "ManaRepairMixin",
+    "RuneForgeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
