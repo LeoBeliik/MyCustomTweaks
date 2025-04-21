@@ -46,23 +46,23 @@ import java.util.Arrays;
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
     public static final String MODID = "mycustomtweaks";
-    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    //private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
     public MyCustomTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        bus.addListener(this::onCreativeModeTabBuildContents);
-        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        //bus.addListener(this::onCreativeModeTabBuildContents);
+        //ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
-    public static final RegistryObject<Item> TERRASTEEL_TEMPLATE = ITEMS.register("terrasteel_template", () ->
-            new Item(new Item.Properties().stacksTo(1)));
+    /*public static final RegistryObject<Item> TERRASTEEL_TEMPLATE = ITEMS.register("terrasteel_template", () ->
+            new Item(new Item.Properties().stacksTo(1)));*/
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public void onCreativeModeTabBuildContents(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS)
             event.accept(new ItemStack(TERRASTEEL_TEMPLATE.get()));
-    }
+    }*/
 
     @SubscribeEvent
     public void onCreeperExplode(ExplosionEvent.Start event) {
@@ -131,8 +131,4 @@ public class MyCustomTweaks {
         }
     }
 
-    @SubscribeEvent
-    public void onWizard(WanderingWizardSelectingTradesEvent event) {
-        event.getOffers().removeIf(offer -> offer.assemble().getItem() instanceof ThaumaturgicLink);
-    }
 }

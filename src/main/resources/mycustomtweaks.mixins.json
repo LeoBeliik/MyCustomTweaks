@@ -10,9 +10,7 @@
     "GravityLensMixin",
     "MagnetRingMixin",
     "RegenMixin",
-    "ManaRepairMixin",
-    "RuneForgeMixin",
-    "SearchableGuiMixin"
+    "ManaRepairMixin"
   ],
   "injectors": {
     "defaultRequire": 1
