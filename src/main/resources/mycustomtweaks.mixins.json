@@ -9,8 +9,7 @@
     "DamageLensMixin",
     "GravityLensMixin",
     "MagnetRingMixin",
-    "RegenMixin",
-    "ManaRepairMixin"
+    "RegenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

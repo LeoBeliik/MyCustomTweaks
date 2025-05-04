@@ -1,8 +1,10 @@
 package com.leobeliik.mycustomtweaks;
 
-import com.mna.api.events.WanderingWizardSelectingTradesEvent;
-import com.mna.items.ritual.ThaumaturgicLink;
 import com.mojang.blaze3d.platform.InputConstants;
+import io.redspace.ironsspellbooks.api.events.ChangeManaEvent;
+import io.redspace.ironsspellbooks.api.events.SpellOnCastEvent;
+import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.spells.SpellData;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.tags.BlockTags;
@@ -10,13 +12,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -24,7 +22,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
@@ -33,15 +30,13 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import org.violetmoon.quark.content.tools.item.PathfindersQuillItem;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.mana.ManaItem;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
+import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.rod.SkiesRodItem;
-
-import java.util.Arrays;
 
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
@@ -129,6 +124,32 @@ public class MyCustomTweaks {
                 event.setCancellationResult(level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME);
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onSpellCast(ChangeManaEvent event) {
+        Player player = event.getEntity();
+        ManaItemHandler handler = ManaItemHandler.instance();
+        MagicData mData = event.getMagicData();
+        SpellData sData = mData.getCastingSpell();
+        float oldMana = event.getOldMana();
+        float afterCastMana = oldMana - sData.getSpell().getManaCost(sData.getLevel());
+
+        if (mData.isCasting()) {
+            if (afterCastMana < 0) {
+                event.setNewMana(0);
+                event.setResult(Event.Result.DENY);
+                return;
+            }
+            event.setNewMana(afterCastMana);
+            event.setCanceled(false);
+        } else
+            event.setCanceled(true);
+        if (handler.requestManaExact(BotaniaItems.alienAntenna.getDefaultInstance(), player, 100, true)) {
+            event.setNewMana(oldMana + 10);
+            event.setCanceled(false);
+        } else
+            event.setCanceled(true);
     }
 
 }

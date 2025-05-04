@@ -66,5 +66,10 @@
       <option name="name" value="maven6" />
       <option name="url" value="https://ldtteam.jfrog.io/ldtteam/modding/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven6" />
+      <option name="name" value="maven6" />
+      <option name="url" value="https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/" />
+    </remote-repository>
   </component>
 </project>
