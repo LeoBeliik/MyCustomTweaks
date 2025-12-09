@@ -1,12 +1,19 @@
 {
   "required": true,
-  "package": "com.leobeliik.mycustomtweaks.mixin",
+  "minVersion": "0.8",
+  "package": "com.leobeliik.mycustomtweaks.mixins",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "client": [
+  ],
+  "mixins": [
+    "DamageLensMixin",
+    "EnderAirMixin",
+    "GravityLensMixin",
+    "ManaBurstEntityMixin",
+    "MagnetRingMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },
-  "overwrites": {
-    "requireAnnotations": true
-  }
+  "refmap": "mycustomtweaks.refmap.json"
 }
