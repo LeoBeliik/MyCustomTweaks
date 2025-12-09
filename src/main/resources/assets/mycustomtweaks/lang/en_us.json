@@ -1,0 +1,13 @@
+{
+  "itemGroup.mycustomtweaks": "Example Mod Tab",
+  "block.mycustomtweaks.example_block": "Example Block",
+  "item.mycustomtweaks.example_item": "Example Item",
+
+  "mycustomtweaks.configuration.title": "MyCustomTweaks Configs",
+  "mycustomtweaks.configuration.section.mycustomtweaks.common.toml": "MyCustomTweaks Configs",
+  "mycustomtweaks.configuration.section.mycustomtweaks.common.toml.title": "MyCustomTweaks Configs",
+  "mycustomtweaks.configuration.items": "Item List",
+  "mycustomtweaks.configuration.logDirtBlock": "Log Dirt Block",
+  "mycustomtweaks.configuration.magicNumberIntroduction": "Magic Number Text",
+  "mycustomtweaks.configuration.magicNumber": "Magic Number"
+}
