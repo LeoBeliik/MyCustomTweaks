@@ -1,8 +1,9 @@
 package com.leobeliik.mycustomtweaks.mixins;
 
-import net.dries007.tfc.common.capabilities.size.ItemSizeManager;
-import net.dries007.tfc.common.capabilities.size.Size;
-import net.dries007.tfc.common.capabilities.size.Weight;
+
+import net.dries007.tfc.common.component.size.ItemSizeManager;
+import net.dries007.tfc.common.component.size.Size;
+import net.dries007.tfc.common.component.size.Weight;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;

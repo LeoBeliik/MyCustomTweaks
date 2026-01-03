@@ -2,8 +2,8 @@ package com.leobeliik.mycustomtweaks.mixins;
 
 import blusunrize.immersiveengineering.api.IEApi;
 import blusunrize.immersiveengineering.client.gui.ToolboxScreen;
-import net.dries007.tfc.common.capabilities.size.ItemSizeManager;
-import net.dries007.tfc.common.capabilities.size.Size;
+import net.dries007.tfc.common.component.size.ItemSizeManager;
+import net.dries007.tfc.common.component.size.Size;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;

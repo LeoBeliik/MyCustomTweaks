@@ -11,11 +11,7 @@
     "itemInQCrateMixin",
     "itemInQBackpackMixin",
     "waterAndWheel",
-    "elytraZetaMixin",
-    "invTransMixin",
-    "invButtonMixin",
-    "dieselToolsMixin",
-    "noTeleportyMixin"
+    "dieselToolsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,14 +1,14 @@
 package com.leobeliik.mycustomtweaks.mixins;
 
-import net.dries007.tfc.common.capabilities.size.ItemSizeManager;
-import net.dries007.tfc.common.capabilities.size.Size;
+import blusunrize.immersiveengineering.common.blocks.CrateItem;
+import net.dries007.tfc.common.component.size.ItemSizeManager;
+import net.dries007.tfc.common.component.size.Size;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
-import org.violetmoon.quark.addons.oddities.capability.CrateItemHandler;
 
-@Mixin(CrateItemHandler.class)
+@Mixin(CrateItem.class)
 public class itemInQCrateMixin extends ItemStackHandler {
 
     @Override
