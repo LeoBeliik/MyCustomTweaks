@@ -6,12 +6,12 @@
   "client": [
   ],
   "mixins": [
-    "itemInIECrateMixin",
     "itemInBundleMixin",
     "itemInQCrateMixin",
     "itemInQBackpackMixin",
     "waterAndWheel",
-    "dieselToolsMixin"
+    "dieselToolsMixin",
+    "propickMixin"
   ],
   "injectors": {
     "defaultRequire": 1

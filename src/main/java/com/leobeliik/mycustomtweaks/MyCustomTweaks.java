@@ -3,19 +3,23 @@ package com.leobeliik.mycustomtweaks;
 import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
 import net.dries007.tfc.common.effect.TFCEffects;
-import net.dries007.tfc.common.effect.TFCMobEffect;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerWakeUpEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -26,8 +30,6 @@ import java.util.Random;
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
     static final String MODID = "mycustomtweaks";
-    public static final TFCEffects.Id<MobEffect> INSOMNIA = TFCEffects.register("insomnia", () -> new TFCMobEffect(MobEffectCategory.BENEFICIAL, 0));
-
 
     public MyCustomTweaks() {
         NeoForge.EVENT_BUS.register(this);
@@ -75,5 +77,22 @@ public class MyCustomTweaks {
         }
         if (!suffer.equals(""))
             player.displayClientMessage(Component.literal(suffer), true);
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST) //GuiAtlas
+    public void onKeyInput(ScreenEvent.KeyPressed.Pre event) {
+        Screen screen = event.getScreen();
+        Minecraft minecraft = screen.getMinecraft();
+        String screenName = screen.getClass().getName();
+
+        if (minecraft.level != null && minecraft.options.keyInventory.matches(event.getKeyCode(), event.getScanCode()) && screenName.contains("GuiAtlas")) {
+            for (GuiEventListener renderable : screen.children()) {
+                if (renderable instanceof EditBox searchBar && searchBar.canConsumeInput() || renderable instanceof PageButton) {
+                    return;
+                }
+            }
+            screen.onClose();
+            event.setCanceled(true);
+        }
     }
 }
