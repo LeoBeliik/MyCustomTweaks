@@ -1,31 +1,37 @@
 package com.leobeliik.mycustomtweaks;
 
 import blusunrize.immersiveengineering.common.blocks.wooden.WoodenCrateBlockEntity;
+import net.dries007.tfc.client.ClientHelpers;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
+import net.dries007.tfc.common.blocks.soil.HoeOverlayBlock;
 import net.dries007.tfc.common.effect.TFCEffects;
+import net.dries007.tfc.config.TFCConfig;
+import net.dries007.tfc.util.Helpers;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.PageButton;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.bus.api.EventPriority;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerWakeUpEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
 
-import java.util.Random;
+import java.util.*;
 
 @Mod(MyCustomTweaks.MODID)
 public class MyCustomTweaks {
@@ -79,20 +85,59 @@ public class MyCustomTweaks {
             player.displayClientMessage(Component.literal(suffer), true);
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST) //GuiAtlas
-    public void onKeyInput(ScreenEvent.KeyPressed.Pre event) {
-        Screen screen = event.getScreen();
-        Minecraft minecraft = screen.getMinecraft();
-        String screenName = screen.getClass().getName();
-
-        if (minecraft.level != null && minecraft.options.keyInventory.matches(event.getKeyCode(), event.getScanCode()) && screenName.contains("GuiAtlas")) {
-            for (GuiEventListener renderable : screen.children()) {
-                if (renderable instanceof EditBox searchBar && searchBar.canConsumeInput() || renderable instanceof PageButton) {
-                    return;
-                }
-            }
-            screen.onClose();
+    @SubscribeEvent
+    public void onGuiRender(RenderGuiLayerEvent.Pre event) {
+        final ResourceLocation id = event.getName();
+        if ((id.equals(VanillaGuiLayers.EXPERIENCE_BAR) || id.equals(VanillaGuiLayers.EXPERIENCE_LEVEL))) {
             event.setCanceled(true);
         }
+    }
+
+    @SubscribeEvent
+    public void onRenderGameOverlayPost(RenderGuiLayerEvent.Post event) {
+        final GuiGraphics graphics = event.getGuiGraphics();
+        final Minecraft minecraft = Minecraft.getInstance();
+        final Player player = minecraft.player;
+        if (player != null) {
+            final boolean holdingHoe = Helpers.isItem(player.getMainHandItem().getItem(), ItemTags.HOES) || Helpers.isItem(player.getOffhandItem().getItem(), ItemTags.HOES);
+            if (event.getName() == VanillaGuiLayers.CROSSHAIR && holdingHoe) {
+                if (!TFCConfig.CLIENT.showHoeOverlaysOnlyWhenShifting.get() || !player.isShiftKeyDown()) {
+                    render(minecraft, graphics);
+                }
+
+            }
+        }
+    }
+
+    private static void render(Minecraft minecraft, GuiGraphics graphics) {
+        Level world = minecraft.level;
+        BlockPos targetedPos = ClientHelpers.getTargetedPos();
+        if (world != null && targetedPos != null) {
+            BlockState targetedState = world.getBlockState(targetedPos);
+            Block var6 = targetedState.getBlock();
+            if (var6 instanceof HoeOverlayBlock && Helpers.isBlock(targetedState.getBlock(), BlockTags.CROPS)) {
+                HoeOverlayBlock overlayBlock = (HoeOverlayBlock) var6;
+                List<Component> lines = new ArrayList<>();
+                Objects.requireNonNull(lines);
+                overlayBlock.addHoeOverlayInfo(world, targetedPos, targetedState, lines::add, TFCConfig.CLIENT.enableDebug.get());
+                if (!lines.isEmpty()) {
+                    int x = graphics.guiWidth() / 2 + 3;
+                    int y = graphics.guiHeight() / 2 + 8;
+
+                    if (lines.stream().filter(l -> l.getString().toLowerCase(Locale.ROOT).contains("good")).count() == 2) {
+                        drawCenteredText(minecraft, graphics, Component.literal("Good"), x, y, 0xff00ff00);
+                    } else {
+                        drawCenteredText(minecraft, graphics, Component.literal("Bad"), x, y, 0xffdd0303);
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    private static void drawCenteredText(Minecraft minecraft, GuiGraphics graphics, Component text, int x, int y, int color) {
+        int textWidth = minecraft.font.width(text) / 2;
+        graphics.drawString(minecraft.font, text, x - textWidth, y, color, true);
     }
 }

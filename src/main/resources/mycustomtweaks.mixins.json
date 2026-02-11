@@ -11,7 +11,8 @@
     "itemInQBackpackMixin",
     "waterAndWheel",
     "dieselToolsMixin",
-    "propickMixin"
+    "propickMixin",
+    "tfcSnowMixin"
   ],
   "injectors": {
     "defaultRequire": 1
