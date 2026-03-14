@@ -5,6 +5,8 @@ import net.dries007.tfc.client.ClientHelpers;
 import net.dries007.tfc.common.blockentities.ThatchBedBlockEntity;
 import net.dries007.tfc.common.blocks.soil.HoeOverlayBlock;
 import net.dries007.tfc.common.effect.TFCEffects;
+import net.dries007.tfc.common.entities.livestock.horse.TFCDonkey;
+import net.dries007.tfc.common.entities.livestock.horse.TFCHorse;
 import net.dries007.tfc.config.TFCConfig;
 import net.dries007.tfc.util.Helpers;
 import net.minecraft.client.Minecraft;
@@ -17,6 +19,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -27,6 +31,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerWakeUpEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
@@ -105,6 +110,24 @@ public class MyCustomTweaks {
                     render(minecraft, graphics);
                 }
 
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onDonkeySpawn(EntityJoinLevelEvent event) {
+        if (event.loadedFromDisk()) return;
+
+        Random r = new Random();
+        if (event.getEntity() instanceof TFCDonkey donkey) {
+            AttributeInstance speed = donkey.getAttribute(Attributes.MOVEMENT_SPEED);
+            if (speed != null) {
+                speed.setBaseValue(r.nextDouble(0.2000, 0.3170));
+            }
+        } else if (event.getEntity() instanceof TFCHorse horse) {
+            AttributeInstance speed = horse.getAttribute(Attributes.MOVEMENT_SPEED);
+            if (speed != null) {
+                speed.setBaseValue(r.nextDouble(0.2300, 0.3376));
             }
         }
     }
