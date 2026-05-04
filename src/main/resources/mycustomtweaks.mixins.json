@@ -13,7 +13,8 @@
     "dieselToolsMixin",
     "propickMixin",
     "tfcSnowMixin",
-    "cokeMixin"
+    "cokeMixin",
+    "shaftMixin"
   ],
   "injectors": {
     "defaultRequire": 1
