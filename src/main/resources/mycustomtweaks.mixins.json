@@ -14,7 +14,9 @@
     "propickMixin",
     "tfcSnowMixin",
     "cokeMixin",
-    "shaftMixin"
+    "shaftMixin",
+    "shaftRenderMixin",
+    "bladedRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

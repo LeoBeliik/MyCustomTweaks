@@ -121,6 +121,7 @@ dependencies {
 
 
     implementation ("maven.modrinth:terrafirmacraft:${tfc_version}")
+    implementation ("maven.modrinth:firmalife:${firmalife_version}")
     implementation ("org.violetmoon.quark:Quark:${quark_version}")
     implementation ("org.violetmoon.zeta:Zeta:${zeta_version}")
     implementation ("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}")
