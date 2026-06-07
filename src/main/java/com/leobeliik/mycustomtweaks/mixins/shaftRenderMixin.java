@@ -27,13 +27,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(CrankshaftBlockEntityRenderer.class)
 public class shaftRenderMixin {
@@ -60,8 +57,7 @@ public class shaftRenderMixin {
                     return;
                 }
 
-                CrankshaftBlockEntity mainEntity = (CrankshaftBlockEntity)mainPart;
-                crankshaft = mainEntity;
+                crankshaft = (CrankshaftBlockEntity)mainPart;
             }
 
             VertexConsumer buffer = bufferSource.getBuffer(RenderType.cutout());
