@@ -117,10 +117,15 @@ repositories {
 dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 
-    implementation ("vazkii.botania:botania-neoforge-1.21.1:451-SNAPSHOT")
-    implementation ("org.violetmoon.quark:Quark:4.1-468.+")
-    implementation ("org.violetmoon.zeta:Zeta:1.1-35z.150")
+    implementation ("vazkii.botania:botania-neoforge-1.21.1:451-+")
+    implementation ("org.violetmoon.quark:Quark:4.1-478-+")
+    implementation ("org.violetmoon.zeta:Zeta:1.1-39-+")
     implementation ("mezz.jei:jei-1.21.1-neoforge:19.9.1.125")
+    implementation ("curse.maven:minecolones-245506:8186694")
+    implementation ("curse.maven:blockuo-522992:7790469")
+    implementation ("curse.maven:domum-527361:7812603")
+    implementation ("curse.maven:multipiston-303278:7097877")
+    implementation ("curse.maven:structurize-298744:8171741")
     runtimeOnly ("top.theillusivec4.curios:curios-neoforge:9.2.0+1.21.1")
     runtimeOnly ("vazkii.patchouli:Patchouli:1.21.1-92-NEOFORGE")
 }

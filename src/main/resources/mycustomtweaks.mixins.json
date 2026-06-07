@@ -10,7 +10,8 @@
     "EnderAirMixin",
     "GravityLensMixin",
     "ManaBurstEntityMixin",
-    "MagnetRingMixin"
+    "MagnetRingMixin",
+    "ColonyScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
