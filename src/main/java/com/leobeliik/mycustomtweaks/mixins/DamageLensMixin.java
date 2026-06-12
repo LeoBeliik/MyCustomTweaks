@@ -15,9 +15,9 @@ import java.util.UUID;
 @Mixin(DamagingLens.class)
 public class DamageLensMixin {
 
-    @Redirect(method = "Lvazkii/botania/common/item/lens/DamagingLens;updateBurst(Lvazkii/botania/api/internal/ManaBurst;Lnet/minecraft/world/item/ItemStack;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/ThrowableProjectile;getOwner()Lnet/minecraft/world/entity/Entity;"))
-    public Entity updateBurst(ThrowableProjectile projectile) {
-        return projectile.getOwner() == null ? new FakePlayer((ServerLevel) projectile.level(), new GameProfile(UUID.randomUUID(), "fake")) : projectile.getOwner();
-    }
+	@Redirect(method = "Lvazkii/botania/common/item/lens/DamagingLens;updateBurst(Lvazkii/botania/api/internal/ManaBurst;Lnet/minecraft/world/item/ItemStack;)V",
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/ThrowableProjectile;getOwner()Lnet/minecraft/world/entity/Entity;"))
+	public Entity updateBurst(ThrowableProjectile projectile) {
+		return projectile.getOwner() == null ? new FakePlayer((ServerLevel) projectile.level(), new GameProfile(UUID.randomUUID(), "fake")) : projectile.getOwner();
+	}
 }

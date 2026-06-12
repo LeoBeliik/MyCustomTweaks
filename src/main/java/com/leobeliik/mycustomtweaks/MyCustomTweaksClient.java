@@ -14,17 +14,17 @@ import static com.leobeliik.mycustomtweaks.MyCustomTweaks.MODID;
 @Mod(value = MODID, dist = Dist.CLIENT)
 public class MyCustomTweaksClient {
 
-    public MyCustomTweaksClient(IEventBus modEventBus, ModContainer modContainer) {
-        modEventBus.addListener(this::registerBindings);
-    }
+	public MyCustomTweaksClient(IEventBus modEventBus, ModContainer modContainer) {
+		modEventBus.addListener(this::registerBindings);
+	}
 
-    public static final KeyMapping magnetKey = new KeyMapping(
-            new TranslatableContents("Toggle Botania Magnet KEY", null, TranslatableContents.NO_ARGS).getKey(),
-            InputConstants.Type.KEYSYM,
-            InputConstants.UNKNOWN.getValue(),
-            "key.categories.misc");
+	public static final KeyMapping magnetKey = new KeyMapping(
+			new TranslatableContents("Toggle Botania Magnet KEY", null, TranslatableContents.NO_ARGS).getKey(),
+			InputConstants.Type.KEYSYM,
+			InputConstants.UNKNOWN.getValue(),
+			"key.categories.misc");
 
-    private void registerBindings(RegisterKeyMappingsEvent event) {
-        event.register(magnetKey);
-    }
+	private void registerBindings(RegisterKeyMappingsEvent event) {
+		event.register(magnetKey);
+	}
 }
