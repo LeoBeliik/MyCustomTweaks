@@ -13,7 +13,8 @@
     "ManaBurstEntityMixin",
     "MagnetRingMixin",
     "ColonyScreenMixin",
-    "EquipmentHandlerMixin"
+    "EquipmentHandlerMixin",
+    "PlayerOrbMixin"
   ],
   "injectors": {
     "defaultRequire": 1
