@@ -8,6 +8,7 @@
   "mixins": [
     "DamageLensMixin",
     "EnderAirMixin",
+    "EnderHandMixin",
     "GravityLensMixin",
     "ManaBurstEntityMixin",
     "MagnetRingMixin",
