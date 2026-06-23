@@ -113,21 +113,27 @@ repositories {
     maven { url = "https://api.modrinth.com/maven" } //Modrinth
     maven { url = "https://maven.tterrag.com/" } //create
     maven { url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/" } //gecko
+    maven { url = "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/" } // Modonomicon
 }
 dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 
-    implementation ("vazkii.botania:botania-neoforge-1.21.1:454-20260615.051648-38")
+    /*implementation ("vazkii.botania:botania-neoforge-1.21.1:454-20260615.051648-38")
     implementation ("org.violetmoon.quark:Quark:4.1-478-+")
-    implementation ("org.violetmoon.zeta:Zeta:1.1-39-+")
-    implementation ("mezz.jei:jei-1.21.1-neoforge:19.9.1.125")
+    implementation ("org.violetmoon.zeta:Zeta:1.1-39-+")*/
+    implementation ("mezz.jei:jei-1.21.1-neoforge:19.19.6.235")
     implementation ("curse.maven:minecolones-245506:8186694")
     implementation ("curse.maven:blockuo-522992:7790469")
     implementation ("curse.maven:domum-527361:7812603")
     implementation ("curse.maven:multipiston-303278:7097877")
     implementation ("curse.maven:structurize-298744:8171741")
-    runtimeOnly ("top.theillusivec4.curios:curios-neoforge:9.2.0+1.21.1")
-    runtimeOnly ("vazkii.patchouli:Patchouli:1.21.1-92-NEOFORGE")
+    /*runtimeOnly ("top.theillusivec4.curios:curios-neoforge:9.2.0+1.21.1")
+    runtimeOnly ("vazkii.patchouli:Patchouli:1.21.1-92-NEOFORGE")*/
+    implementation("com.klikli_dev:modonomicon-1.21.1-neoforge:1.117.4") {
+        exclude(group: "com.klikli_dev")
+        exclude(group: "mezz.jei")
+    }
+
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

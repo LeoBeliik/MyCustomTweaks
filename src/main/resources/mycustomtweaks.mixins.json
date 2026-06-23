@@ -6,15 +6,8 @@
   "client": [
   ],
   "mixins": [
-    "DamageLensMixin",
-    "EnderAirMixin",
-    "EnderHandMixin",
-    "GravityLensMixin",
-    "ManaBurstEntityMixin",
-    "MagnetRingMixin",
     "ColonyScreenMixin",
-    "EquipmentHandlerMixin",
-    "PlayerOrbMixin"
+    "StupidBookMixin"
   ],
   "injectors": {
     "defaultRequire": 1
