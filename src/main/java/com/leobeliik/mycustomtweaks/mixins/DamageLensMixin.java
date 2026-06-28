@@ -3,6 +3,7 @@ package com.leobeliik.mycustomtweaks.mixins;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,8 +17,8 @@ import java.util.UUID;
 public class DamageLensMixin {
 
 	@Redirect(method = "Lvazkii/botania/common/item/lens/DamagingLens;updateBurst(Lvazkii/botania/api/internal/ManaBurst;Lnet/minecraft/world/item/ItemStack;)V",
-			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/ThrowableProjectile;getOwner()Lnet/minecraft/world/entity/Entity;"))
-	public Entity updateBurst(ThrowableProjectile projectile) {
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/Projectile;getOwner()Lnet/minecraft/world/entity/Entity;"))
+	public Entity updateBurst(Projectile projectile) {
 		return projectile.getOwner() == null ? new FakePlayer((ServerLevel) projectile.level(), new GameProfile(UUID.randomUUID(), "fake")) : projectile.getOwner();
 	}
 }

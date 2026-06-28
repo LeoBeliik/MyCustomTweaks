@@ -8,13 +8,11 @@
   "mixins": [
     "DamageLensMixin",
     "EnderAirMixin",
-    "EnderHandMixin",
     "GravityLensMixin",
     "ManaBurstEntityMixin",
     "MagnetRingMixin",
     "ColonyScreenMixin",
-    "EquipmentHandlerMixin",
-    "PlayerOrbMixin"
+    "EquipmentHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

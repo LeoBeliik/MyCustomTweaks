@@ -21,12 +21,12 @@ public class EnderAirMixin {
 	@Overwrite(remap = false)
 	public static InteractionResultHolder<ItemStack> onPlayerInteract(Player player, Level world, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.is(BotaniaItems.vial)) {
+		if (!stack.isEmpty() && stack.is(BotaniaItems.BREW_FLASK)) {
 			if ((world.dimension() != Level.END) && !pickupFromEntity(world, player.getBoundingBox().inflate((double) 1.0F))) {
 				return InteractionResultHolder.pass(stack);
 			} else {
 				if (!world.isClientSide) {
-					ItemStack enderAir = new ItemStack(BotaniaItems.enderAirBottle);
+					ItemStack enderAir = new ItemStack(BotaniaItems.ENDER_AIR_BOTTLE);
 					player.getInventory().placeItemBackInInventory(enderAir);
 					stack.shrink(1);
 					world.playSound((Player) null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 0.5F, 1.0F);

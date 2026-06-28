@@ -35,7 +35,7 @@ public class MyCustomTweaks {
 	public void onShatBreak(PlayerEvent.BreakSpeed event) {
 		ItemStack stack = event.getEntity().getItemInHand(InteractionHand.MAIN_HAND);
 		Level level = event.getEntity().level();
-		if (stack.is(BotaniaItems.terraPick) && event.getState().is(BlockTags.MINEABLE_WITH_SHOVEL)) {
+		if (stack.is(BotaniaItems.TERRA_TRUNCATOR) && event.getState().is(BlockTags.MINEABLE_WITH_SHOVEL)) {
 			int efficiency = EnchantmentHelper.getItemEnchantmentLevel(
 					level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.EFFICIENCY),
 					stack);
@@ -48,7 +48,7 @@ public class MyCustomTweaks {
 	public void onCorporeaSparkUse(PlayerInteractEvent.RightClickBlock event) {
 		BlockEntity be = event.getLevel().getBlockEntity(event.getHitVec().getBlockPos());
 		if ((be instanceof BaseContainerBlockEntity)
-				&& (event.getItemStack().is(BotaniaItems.corporeaSpark) || event.getItemStack().is(BotaniaItems.corporeaSparkMaster))) {
+				&& (event.getItemStack().is(BotaniaItems.CORPOREA_SPARK) || event.getItemStack().is(BotaniaItems.MASTER_CORPOREA_SPARK))) {
 			event.setUseBlock(TriState.FALSE);
 		}
 	}

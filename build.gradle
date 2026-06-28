@@ -117,7 +117,7 @@ repositories {
 dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 
-    implementation ("vazkii.botania:botania-neoforge-1.21.1:454-20260615.051648-38")
+    implementation ("vazkii.botania:botania-neoforge-1.21.1:454-+")
     implementation ("org.violetmoon.quark:Quark:4.1-478-+")
     implementation ("org.violetmoon.zeta:Zeta:1.1-39-+")
     implementation ("mezz.jei:jei-1.21.1-neoforge:19.9.1.125")
