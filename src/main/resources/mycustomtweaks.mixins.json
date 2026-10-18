@@ -1,16 +1,9 @@
 {
   "required": true,
-  "minVersion": "0.8",
-  "package": "com.leobeliik.mycustomtweaks.mixins",
-  "compatibilityLevel": "JAVA_21",
-  "client": [
-  ],
-  "mixins": [
-    "ColonyScreenMixin",
-    "StupidBookMixin"
-  ],
+  "package": "com.leobeliik.mycustomtweaks.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": ["PaneBlockMixin"],
   "injectors": {
     "defaultRequire": 1
-  },
-  "refmap": "mycustomtweaks.refmap.json"
+  }
 }
